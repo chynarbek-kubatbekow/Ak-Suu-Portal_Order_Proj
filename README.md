@@ -102,7 +102,7 @@
 - Редакционная структура блоков: карточки, таймлайны, метрики, галереи, информационные окна.
 - Подготовленная структура для деплоя на Render.
 - WhiteNoise для раздачи статических файлов в production.
-- Поддержка SQLite локально и DATABASE_URL для PostgreSQL на Render.
+- Сайт работает как статически управляемый Django-портал без обязательной базы данных.
 
 ## Технологии
 
@@ -113,7 +113,6 @@
 - JavaScript
 - WhiteNoise
 - Gunicorn
-- dj-database-url
 - Render
 
 ## Структура проекта
@@ -192,13 +191,7 @@ Windows PowerShell:
 pip install -r requirements.txt
 ```
 
-### 3. Выполнить миграции
-
-```bash
-python manage.py migrate
-```
-
-### 4. Запустить сервер
+### 3. Запустить сервер
 
 ```bash
 python manage.py runserver
@@ -262,13 +255,7 @@ WEB_CONCURRENCY = 4
 PYTHON_VERSION = 3.14.3
 ```
 
-Если подключается PostgreSQL, Render также добавит:
-
-```text
-DATABASE_URL = postgres://...
-```
-
-Проект автоматически использует `DATABASE_URL`, если переменная есть.
+База данных для текущей версии сайта не нужна: сайт не сохраняет заявки, сообщения формы или персональные данные.
 
 ## Как работает build.sh
 
@@ -278,15 +265,13 @@ DATABASE_URL = postgres://...
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 python manage.py collectstatic --no-input
-python manage.py migrate --no-input
 ```
 
 То есть при деплое Render:
 
 1. обновляет pip;
 2. устанавливает зависимости;
-3. собирает статические файлы;
-4. применяет миграции базы данных.
+3. собирает статические файлы.
 
 ## Статика и изображения
 
@@ -376,6 +361,7 @@ python manage.py collectstatic --noinput
 
 - главная страница открывается;
 - все страницы из `PAGES` открываются;
+- все страницы открываются и со слешем, и без слеша;
 - неизвестный slug возвращает 404.
 
 Запуск:
@@ -392,7 +378,6 @@ python manage.py test
 - `DEBUG` через переменную окружения;
 - `ALLOWED_HOSTS` с поддержкой Render;
 - `CSRF_TRUSTED_ORIGINS` для production-домена;
-- `DATABASE_URL` для PostgreSQL;
 - `STATIC_ROOT` для collectstatic;
 - WhiteNoise для staticfiles.
 

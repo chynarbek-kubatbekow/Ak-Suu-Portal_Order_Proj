@@ -4,5 +4,19 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("<slug:slug>/", views.page, name="page"),
 ]
+
+for page_slug in views.PAGES:
+    urlpatterns.extend(
+        [
+            path(f"{page_slug}/", views.page, {"slug": page_slug}, name=f"page_{page_slug}"),
+            path(f"{page_slug}", views.page, {"slug": page_slug}, name=f"page_{page_slug}_no_slash"),
+        ]
+    )
+
+urlpatterns.extend(
+    [
+        path("<slug:slug>/", views.page, name="page"),
+        path("<slug:slug>", views.page, name="page_no_slash"),
+    ]
+)
