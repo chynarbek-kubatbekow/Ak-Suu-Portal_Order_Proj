@@ -1,0 +1,140 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Ак-Суу туристический лицей{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static asset.logo_mark %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'myapp/css/site.css' %}">
+</head>
+<body>
+    <div class="scroll-progress" data-progress aria-hidden="true"></div>
+    <header class="site-header" data-header>
+        <a class="brand" href="{% url 'home' %}" aria-label="Ak Suu">
+            <img class="brand-logo brand-logo-mark" src="{% static asset.logo_mark %}" alt="">
+            <span class="brand-wordmark">
+                <strong class="notranslate" translate="no">Ак-Суу</strong>
+                <span>Инновационный туристический лицей</span>
+            </span>
+        </a>
+        <button class="menu-toggle" type="button" data-menu-toggle aria-label="Открыть меню" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="main-nav" data-nav aria-label="Основная навигация">
+            <div class="mobile-menu-head">
+                <span class="brand mobile-brand">
+                    <img class="brand-logo brand-logo-mark" src="{% static asset.logo_mark %}" alt="">
+                    <span class="brand-wordmark">
+                        <strong class="notranslate" translate="no">Ак-Суу</strong>
+                        <span>Инновационный туристический лицей</span>
+                    </span>
+                </span>
+                <button type="button" data-menu-close aria-label="Закрыть меню">Закрыть</button>
+            </div>
+            {% for slug, label, full_label in nav_items %}
+                {% if slug == "home" %}
+                    <a href="{% url 'home' %}" class="{% if active == slug %}is-active{% endif %}" data-full="{{ full_label }}">{{ label }}</a>
+                {% else %}
+                    <a href="{% url 'page' slug %}" class="{% if active == slug %}is-active{% endif %}" data-full="{{ full_label }}">{{ label }}</a>
+                {% endif %}
+            {% endfor %}
+            <div class="mobile-menu-actions">
+                <a href="{% url 'page' 'admission' %}">Как поступить</a>
+                <a href="https://maps.app.goo.gl/6dKa8TQcnX3HeXQD6" target="_blank" rel="noopener">Карта</a>
+            </div>
+        </nav>
+        <div class="language-switch" aria-label="Выбор языка">
+            <a class="is-active notranslate" href="#" data-translate-lang="ru" translate="no">RU</a>
+            <a class="notranslate" href="#" data-translate-lang="ky" translate="no">KG</a>
+            <a class="notranslate" href="#" data-translate-lang="en" translate="no">EN</a>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <nav class="mobile-quickbar" aria-label="Быстрая навигация">
+        <a href="{% url 'home' %}" class="{% if active == 'home' %}is-active{% endif %}">
+            <span class="quick-icon quick-home" aria-hidden="true"></span>
+            Главная
+        </a>
+        <a href="{% url 'page' 'programs' %}" class="{% if active == 'programs' %}is-active{% endif %}">
+            <span class="quick-icon quick-programs" aria-hidden="true"></span>
+            Обучение
+        </a>
+        <a href="{% url 'page' 'admission' %}" class="{% if active == 'admission' %}is-active{% endif %}">
+            <span class="quick-icon quick-admission" aria-hidden="true"></span>
+            Приём
+        </a>
+        <a href="{% url 'page' 'contacts' %}" class="{% if active == 'contacts' %}is-active{% endif %}">
+            <span class="quick-icon quick-contact" aria-hidden="true"></span>
+            Контакты
+        </a>
+    </nav>
+
+    <footer class="site-footer">
+        <div class="footer-mountains" aria-hidden="true"></div>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a class="brand brand-light" href="{% url 'home' %}" aria-label="Ak Suu">
+                    <img class="brand-logo brand-logo-mark" src="{% static asset.logo_mark %}" alt="">
+                    <span class="brand-wordmark">
+                        <strong class="notranslate" translate="no">Ак-Суу</strong>
+                        <span>Инновационный туристический лицей</span>
+                    </span>
+                </a>
+                <p>Республиканский инновационный туристический профессиональный лицей для туризма, гостеприимства и горных кластеров Кыргызстана.</p>
+            </div>
+            <div>
+                <h2>Навигация</h2>
+                <div class="footer-links">
+                    {% for slug, label, full_label in nav_items %}
+                        {% if slug == "home" %}
+                            <a href="{% url 'home' %}">{{ full_label }}</a>
+                        {% else %}
+                            <a href="{% url 'page' slug %}">{{ full_label }}</a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                <h2>Контакты</h2>
+                <address>
+                    с. Ак-Суу, Ак-Суйский район<br>
+                    ул. Алымбек Датки, 152<br>
+                    09:00 - 16:30<br>
+                    @tourism_pl_aksuu_kg<br>
+                    Приём: Алсейитова Кымбат Сагындыковна
+                </address>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 Республиканский инновационный туристический профессиональный лицей «Ак-Суу»</span>
+            <span>RU / KG / EN</span>
+        </div>
+    </footer>
+
+    <div id="google_translate_element" aria-hidden="true"></div>
+    <script>
+        window.googleTranslateElementInit = function () {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: "ru",
+                    includedLanguages: "ru,ky,en",
+                    autoDisplay: false,
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                },
+                "google_translate_element"
+            );
+            window.dispatchEvent(new Event("ak-suu-translate-ready"));
+        };
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+    <script src="{% static 'myapp/js/site.js' %}" defer></script>
+</body>
+</html>

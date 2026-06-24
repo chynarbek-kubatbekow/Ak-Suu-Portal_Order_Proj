@@ -1,0 +1,284 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block title %}{{ page.title }} - Ак-Суу{% endblock %}
+
+{% block content %}
+<section class="page-hero" style="--hero-image: url('{% static page.hero %}')">
+    <div class="hero-shade"></div>
+    <div class="page-hero-content reveal">
+        <p class="breadcrumb">{{ page.breadcrumb }}</p>
+        <h1>{{ page.title }}</h1>
+        <p>{{ page.lead }}</p>
+    </div>
+</section>
+
+{% for section in page.sections %}
+    {% if section.kind == "editorial" %}
+        <section class="section editorial-grid">
+            <div class="section-copy reveal">
+                <p class="eyebrow">{{ section.eyebrow }}</p>
+                <h2>{{ section.title }}</h2>
+                <p>{{ section.text }}</p>
+                {% if section.quote %}<blockquote>{{ section.quote }}</blockquote>{% endif %}
+            </div>
+            <figure class="feature-photo reveal">
+                <img src="{% static section.image %}" alt="">
+            </figure>
+        </section>
+    {% elif section.kind == "history" %}
+        <section class="section history-section">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Timeline</p>
+                <h2>{{ section.title }}</h2>
+            </div>
+            <div class="history-layout">
+                <div class="history-list">
+                    {% for date, text in section.items %}
+                        <article class="history-item reveal">
+                            <strong>{{ date }}</strong>
+                            <p>{{ text }}</p>
+                        </article>
+                    {% endfor %}
+                </div>
+                <img class="history-photo reveal" src="{% static section.image %}" alt="">
+            </div>
+        </section>
+    {% elif section.kind == "features" %}
+        <section class="section soft-band">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Ak Suu</p>
+                <h2>{{ section.title }}</h2>
+            </div>
+            <div class="feature-grid">
+                {% for item in section.items %}
+                    <article class="feature-card reveal">
+                        <span class="feature-icon"></span>
+                        <h3>{{ item }}</h3>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% elif section.kind == "management" %}
+        <section class="section management-section">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Команда</p>
+                <h2>{{ section.title }}</h2>
+            </div>
+            <div class="management-grid">
+                {% for role, name in section.items %}
+                    <article class="management-card reveal">
+                        <span>{{ role }}</span>
+                        <h3>{{ name }}</h3>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% elif section.kind == "programs" %}
+        <section class="section">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Programs</p>
+                <h2>{{ section.title }}</h2>
+            </div>
+            <div class="program-grid program-grid-large">
+                {% for program in section.items %}
+                    <article class="program-card reveal">
+                        <img src="{% static program.image %}" alt="">
+                        <div>
+                            <span>{{ program.duration }}</span>
+                            <h3>{{ program.title }}</h3>
+                            <p>{{ program.text }}</p>
+                            <dl class="program-details">
+                                <div>
+                                    <dt>Что делает специалист</dt>
+                                    <dd>{{ program.does }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Преимущества</dt>
+                                    <dd>{{ program.benefits }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Кому подходит</dt>
+                                    <dd>{{ program.fit }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Где сможет работать</dt>
+                                    <dd>{{ program.workplaces }}</dd>
+                                </div>
+                                <div>
+                                    <dt>Практика</dt>
+                                    <dd>{{ program.practice }}</dd>
+                                </div>
+                            </dl>
+                            <div class="skill-cloud" aria-label="Ключевые навыки">
+                                {% for skill in program.skills %}
+                                    <span>{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                            <small>{{ program.document }}</small>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% elif section.kind == "insights" %}
+        <section class="section soft-band">
+            <div class="section-heading reveal">
+                <p class="eyebrow">{{ section.eyebrow }}</p>
+                <h2>{{ section.title }}</h2>
+                {% if section.text %}<p>{{ section.text }}</p>{% endif %}
+            </div>
+            <div class="insight-grid">
+                {% for item in section.items %}
+                    <article class="insight-card reveal">
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.text }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% elif section.kind == "short_courses" %}
+        <section class="section short-courses">
+            <div class="section-copy reveal">
+                <p class="eyebrow">3 месяца</p>
+                <h2>{{ section.title }}</h2>
+                <p>Курсы могут быть полезны для студентов, сотрудников туристической сферы и абитуриентов, которым нужна прикладная коммуникация.</p>
+            </div>
+            <div class="course-list">
+                {% for item in section.items %}
+                    <article class="course-card reveal">{{ item }}</article>
+                {% endfor %}
+            </div>
+        </section>
+    {% elif section.kind == "admission" %}
+        <section class="section admission-layout">
+            <div class="section-copy reveal">
+                <p class="eyebrow">Информация</p>
+                <h2>{{ section.title }}</h2>
+                <p class="notice-text">{{ section.note }}</p>
+                <div class="steps">
+                    {% for step in section.steps %}
+                        <div>
+                            <strong>{{ forloop.counter }}</strong>
+                            <p>{{ step }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="text-link" href="https://edu.gov.kg/" target="_blank" rel="noopener">Перейти на edu.gov.kg</a>
+            </div>
+            <div class="document-list reveal" data-accordion>
+                <button class="accordion-trigger" type="button" data-accordion-trigger aria-expanded="true">
+                    <span>Первичный перечень документов</span>
+                    <i aria-hidden="true"></i>
+                </button>
+                <ul data-accordion-panel>
+                    {% for doc in section.docs %}
+                        <li>{{ doc }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+    {% elif section.kind == "timeline" %}
+        <section class="section timeline-section">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Timeline</p>
+                <h2>{{ section.title }}</h2>
+            </div>
+            <div class="timeline">
+                {% for date, text in section.items %}
+                    <article class="timeline-item reveal">
+                        <strong>{{ date }}</strong>
+                        <p>{{ text }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% elif section.kind == "metrics" %}
+        <section class="fact-strip fact-strip-contained">
+            {% for number, label in section.items %}
+                <div>
+                    <strong>{{ number }}</strong>
+                    <span>{{ label }}</span>
+                </div>
+            {% endfor %}
+        </section>
+    {% elif section.kind == "gallery" %}
+        <section class="section">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Campus</p>
+                <h2>{{ section.title }}</h2>
+            </div>
+            <div class="gallery">
+                {% for image in section.images %}
+                    <img class="reveal" src="{% static image %}" alt="">
+                {% endfor %}
+            </div>
+        </section>
+    {% elif section.kind == "partners" %}
+        <section class="section soft-band">
+            <div class="section-heading reveal">
+                <p class="eyebrow">Partners</p>
+                <h2>{{ section.title }}</h2>
+            </div>
+            <div class="partner-grid">
+                {% for item in section.items %}
+                    <article class="partner-card reveal">{{ item }}</article>
+                {% endfor %}
+            </div>
+        </section>
+    {% elif section.kind == "news" %}
+        <section class="section">
+            <div class="section-heading reveal">
+                <p class="eyebrow">News</p>
+                <h2>{{ section.title }}</h2>
+            </div>
+            <div class="filter-tabs" aria-label="Фильтр новостей">
+                <button class="is-active" type="button">Все новости</button>
+                <button type="button">Поступление</button>
+                <button type="button">Партнёрства</button>
+                <button type="button">Развитие</button>
+            </div>
+            <div class="news-grid">
+                {% for item in section.items %}
+                    <article class="news-card reveal">
+                        <img src="{% static item.image %}" alt="">
+                        <div>
+                            <span>{{ item.category }} · {{ item.date }}</span>
+                            <h3>{{ item.title }}</h3>
+                            <p>{{ item.text }}</p>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% elif section.kind == "contacts" %}
+        <section class="section contacts-layout">
+            <div class="contact-panel reveal">
+                <p class="eyebrow">Мы на связи</p>
+                <h2>Республиканский инновационный туристический профессиональный лицей «Ак-Суу»</h2>
+                <dl>
+                    <div><dt>Адрес</dt><dd>с. Ак-Суу, Ак-Суйский район, ул. Алымбек Датки, 152</dd></div>
+                    <div><dt>Ориентир</dt><dd>бывшая ул. Ленина</dd></div>
+                    <div><dt>График</dt><dd>09:00 - 16:30</dd></div>
+                    <div><dt>Соцсеть</dt><dd>@tourism_pl_aksuu_kg</dd></div>
+                    <div><dt>Поступление</dt><dd>Алсейитова Кымбат Сагындыковна</dd></div>
+                </dl>
+                <a class="text-link" href="https://maps.app.goo.gl/6dKa8TQcnX3HeXQD6" target="_blank" rel="noopener">Открыть карту</a>
+            </div>
+            <div class="map-panel reveal">
+                <iframe title="Карта лицея Ак-Суу" src="https://www.google.com/maps?q=42.4967,78.5274&z=14&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <form class="contact-form reveal">
+                <h3>Напишите нам</h3>
+                <p>Форма обратной связи не является заявлением на поступление.</p>
+                <div class="form-grid">
+                    <label>Имя<input type="text" name="name" autocomplete="name"></label>
+                    <label>E-mail<input type="email" name="email" autocomplete="email"></label>
+                </div>
+                <label>Сообщение<textarea name="message" rows="5"></textarea></label>
+                <button type="button">Отправить сообщение</button>
+            </form>
+        </section>
+    {% endif %}
+{% endfor %}
+{% endblock %}

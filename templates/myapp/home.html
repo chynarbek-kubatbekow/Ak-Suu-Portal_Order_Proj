@@ -1,0 +1,194 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block title %}Ак-Суу - инновационный туристический лицей{% endblock %}
+
+{% block content %}
+<section class="home-hero" style="--hero-image: url('{% static asset.hero %}')">
+    <div class="hero-shade"></div>
+    <div class="hero-content reveal">
+        <p class="eyebrow">Республиканский инновационный туристический профессиональный лицей</p>
+        <h1>Первый туристический лицей Кыргызстана международного уровня</h1>
+        <p>«Ак-Суу» готовит кадры для туризма, гостеприимства и горных кластеров Иссык-Куля, соединяя практику, партнёрства и австрийский образовательный опыт.</p>
+        <div class="hero-links">
+            <a href="{% url 'page' 'admission' %}">Поступление</a>
+            <a href="{% url 'page' 'programs' %}">Направления</a>
+        </div>
+    </div>
+    <aside class="hero-notice reveal">
+        <span>Приём</span>
+        <strong>15 июля - 1 сентября</strong>
+        <p>Ориентировочно. Точные сроки будут опубликованы после приказа Министерства просвещения.</p>
+    </aside>
+</section>
+
+<section class="mobile-priority">
+    <a href="{% url 'page' 'admission' %}">Как поступить</a>
+    <a href="{% url 'page' 'programs' %}">Программы</a>
+    <a href="https://maps.app.goo.gl/6dKa8TQcnX3HeXQD6" target="_blank" rel="noopener">Карта</a>
+</section>
+
+<section class="fact-strip">
+    <div>
+        <strong>6</strong>
+        <span>направлений к запуску</span>
+    </div>
+    <div>
+        <strong>25</strong>
+        <span>мест на группу</span>
+    </div>
+    <div>
+        <strong>60%+</strong>
+        <span>практики у работодателей</span>
+    </div>
+    <div>
+        <strong>4700</strong>
+        <span>ориентировочная потребность отрасли</span>
+    </div>
+</section>
+
+<section class="section editorial-grid">
+    <div class="section-copy reveal">
+        <p class="eyebrow">Зачем создан лицей</p>
+        <h2>Кадры для туризма, сервиса и проектов уровня «Ала-Тоо Резорт»</h2>
+        <p>Туризм для Кыргызстана - это экономика, культура и международный имидж. Лицей «Ак-Суу» развивается как центр подготовки специалистов для гостиничного сервиса, горных маршрутов, курортной инфраструктуры и индустрии гостеприимства.</p>
+        <a class="text-link" href="{% url 'page' 'about' %}">История лицея</a>
+    </div>
+    <figure class="feature-photo reveal">
+        <img src="{% static asset.home_editorial %}" alt="Горы и озеро Иссык-Куль">
+    </figure>
+</section>
+
+<section class="section soft-band">
+    <div class="section-heading reveal">
+        <p class="eyebrow">Обучение</p>
+        <h2>Планируемые направления</h2>
+        <p>Открытие направлений зависит от набора, лицензирования и утверждённых образовательных условий.</p>
+    </div>
+    <div class="program-grid">
+        {% for program in programs %}
+            <article class="program-card reveal">
+                <img src="{% static program.home_image %}" alt="">
+                <div>
+                    <span>{{ program.duration }}</span>
+                    <h3>{{ program.title }}</h3>
+                    <p>{{ program.text }}</p>
+                    <dl class="program-details">
+                        <div>
+                            <dt>Что делает</dt>
+                            <dd>{{ program.does }}</dd>
+                        </div>
+                        <div>
+                            <dt>Плюсы направления</dt>
+                            <dd>{{ program.benefits }}</dd>
+                        </div>
+                        <div>
+                            <dt>Где работать</dt>
+                            <dd>{{ program.workplaces }}</dd>
+                        </div>
+                    </dl>
+                    <div class="skill-cloud" aria-label="Ключевые навыки">
+                        {% for skill in program.skills %}
+                            <span>{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                    <small>{{ program.document }}</small>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading reveal">
+        <p class="eyebrow">Как устроено обучение</p>
+        <h2>От первого сервиса до собственного профессионального портфолио</h2>
+    </div>
+    <div class="insight-grid">
+        {% for item in student_pathway %}
+            <article class="insight-card reveal">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.text }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section split-feature">
+    <div class="split-media reveal">
+        <img src="{% static asset.home_split %}" alt="Туристическая среда Кыргызстана">
+    </div>
+    <div class="split-panel reveal">
+        <p class="eyebrow">Австрия и Клессхайм</p>
+        <h2>Международная модель без потери кыргызского контекста</h2>
+        <p>Лицей использует опыт Австрии как ориентир для качества программ, практической подготовки, сервиса и подготовки преподавателей. В фокусе - адаптация, а не копирование.</p>
+        <div class="mini-timeline">
+            {% for date, text in history %}
+                <div><strong>{{ date }}</strong><span>{{ text }}</span></div>
+            {% endfor %}
+        </div>
+        <a class="text-link" href="{% url 'page' 'international' %}">Международное сотрудничество</a>
+    </div>
+</section>
+
+<section class="section opportunity-section">
+    <div class="section-heading reveal">
+        <p class="eyebrow">Студентам</p>
+        <h2>Практика, дуальное обучение и партнёры</h2>
+    </div>
+    <div class="opportunity-list">
+        {% for item in opportunities %}
+            <span class="reveal">{{ item }}</span>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section international-band" style="--band-image: url('{% static asset.home_band %}')">
+    <div class="band-content reveal">
+        <p class="eyebrow">2026-2035</p>
+        <h2>Концепция развития туристического образования</h2>
+        <p>В будущем планируется открытие дополнительных направлений совместно с австрийскими партнёрами: ресторан, кухня, ресепшн, housekeeping и туристический гид.</p>
+        <a href="{% url 'page' 'concept' %}">Концепция развития</a>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading reveal">
+        <p class="eyebrow">Партнёры</p>
+        <h2>Связь с индустрией</h2>
+    </div>
+    <div class="partner-grid partner-grid-home">
+        {% for partner in partners %}
+            <article class="partner-card reveal">{{ partner }}</article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading reveal">
+        <p class="eyebrow">Новости</p>
+        <h2>Официальные материалы</h2>
+    </div>
+    <div class="news-grid">
+        {% for item in news_items %}
+            <article class="news-card reveal">
+                <img src="{% static item.image %}" alt="">
+                <div>
+                    <span>{{ item.category }} · {{ item.date }}</span>
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.text }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section contact-cta">
+    <div class="reveal">
+        <p class="eyebrow">Контакты</p>
+        <h2>с. Ак-Суу, ул. Алымбек Датки, 152</h2>
+        <p>График работы: 09:00 - 16:30. Контакт по приёму: Алсейитова Кымбат Сагындыковна.</p>
+    </div>
+    <a href="{% url 'page' 'contacts' %}">Открыть контакты</a>
+</section>
+{% endblock %}

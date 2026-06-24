@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ak-suu-portal
+    runtime: python
+    buildCommand: bash build.sh
+    startCommand: gunicorn myproject.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: PYTHON_VERSION
+        value: 3.14.3
+      - key: DEBUG
+        value: "0"
