@@ -4,12 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Ак-Суу туристический лицей{% endblock %}</title>
+    <title>{% block title %}РИТПЛ «Ак-Суу» - туристический лицей{% endblock %}</title>
     <link rel="icon" type="image/png" href="{% static asset.logo_mark %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'myapp/css/site.css' %}">
+    {% block extra_head %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'myapp/css/site.css' %}?v=20260627-news-links">
 </head>
 <body>
     <div class="scroll-progress" data-progress aria-hidden="true"></div>
@@ -48,11 +46,12 @@
             </div>
         </nav>
         <div class="language-switch" aria-label="Выбор языка">
-            <a class="is-active notranslate" href="#" data-translate-lang="ru" translate="no">RU</a>
-            <a class="notranslate" href="#" data-translate-lang="ky" translate="no">KG</a>
-            <a class="notranslate" href="#" data-translate-lang="en" translate="no">EN</a>
+            <a class="is-active notranslate" href="?lang=ru" data-translate-lang="ru" translate="no">RU</a>
+            <a class="notranslate" href="?lang=ky" data-translate-lang="ky" translate="no">KG</a>
+            <a class="notranslate" href="?lang=en" data-translate-lang="en" translate="no">EN</a>
         </div>
     </header>
+    <button class="menu-backdrop" type="button" data-menu-backdrop aria-label="Закрыть меню"></button>
 
     <main>
         {% block content %}{% endblock %}
@@ -106,10 +105,12 @@
                 <h2>Контакты</h2>
                 <address>
                     с. Ак-Суу, Ак-Суйский район<br>
-                    ул. Алымбек Датки, 152<br>
-                    09:00 - 16:30<br>
-                    @tourism_pl_aksuu_kg<br>
-                    Приём: Алсейитова Кымбат Сагындыковна
+                    ул. Алымбек-Датка, 398<br>
+                    график приёмной публикуется в Instagram<br>
+                    <a href="https://www.instagram.com/tourism_pl_aksuu_kg/" target="_blank" rel="noopener">@tourism_pl_aksuu_kg</a><br>
+                    Справки ПТО:
+                    <a href="tel:+996777465687">+996 777 465 687</a>,
+                    <a href="tel:+996707449616">+996 707 449 616</a>
                 </address>
             </div>
         </div>
@@ -119,22 +120,6 @@
         </div>
     </footer>
 
-    <div id="google_translate_element" aria-hidden="true"></div>
-    <script>
-        window.googleTranslateElementInit = function () {
-            new google.translate.TranslateElement(
-                {
-                    pageLanguage: "ru",
-                    includedLanguages: "ru,ky,en",
-                    autoDisplay: false,
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-                },
-                "google_translate_element"
-            );
-            window.dispatchEvent(new Event("ak-suu-translate-ready"));
-        };
-    </script>
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
-    <script src="{% static 'myapp/js/site.js' %}" defer></script>
+    <script src="{% static 'myapp/js/site.js' %}?v=20260627-news-links" defer></script>
 </body>
 </html>

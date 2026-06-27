@@ -9,7 +9,7 @@ class PublicPagesTests(TestCase):
         response = self.client.get(reverse("home"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Первый туристический лицей")
+        self.assertContains(response, "новая культура туризма")
 
     def test_all_content_pages_render(self):
         for slug, page in PAGES.items():
