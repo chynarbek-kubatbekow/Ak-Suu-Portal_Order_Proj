@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Golos+Text:wght@400;500;600;700;800&display=swap");
-
 :root {
     --ink: #062f2f;
     --deep: #003f3e;
@@ -755,6 +753,61 @@ select {
     line-height: 1.62;
 }
 
+[data-program-card]:not(.is-expanded) .program-details div:nth-child(n+2) {
+    display: none;
+}
+
+.program-details-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: fit-content;
+    min-height: 40px;
+    margin-top: 14px;
+    padding: 0 16px;
+    border: 1px solid rgba(8, 125, 121, 0.22);
+    border-radius: 999px;
+    color: var(--deep);
+    background: rgba(223, 243, 239, 0.74);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        background-color 180ms ease,
+        color 180ms ease;
+}
+
+.program-details-toggle svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 180ms ease;
+}
+
+[data-program-card].is-expanded .program-details-toggle svg {
+    transform: rotate(180deg);
+}
+
+.program-details-toggle:hover,
+.program-details-toggle:focus-visible {
+    transform: translateY(-1px);
+    border-color: rgba(8, 125, 121, 0.42);
+    color: white;
+    background: var(--teal);
+}
+
+[data-program-card] {
+    cursor: pointer;
+}
+
+[data-program-card] a,
+[data-program-card] button {
+    cursor: pointer;
+}
+
 .skill-cloud {
     display: flex;
     flex-wrap: wrap;
@@ -1233,6 +1286,31 @@ select {
     grid-row: span 2;
 }
 
+.page-opportunities-section {
+    padding-top: clamp(24px, 2.6vw, 38px);
+    padding-bottom: clamp(24px, 2.6vw, 38px);
+}
+
+.page-opportunities-section.section-gallery {
+    padding-bottom: clamp(14px, 1.8vw, 24px);
+}
+
+.page-opportunities-section.section-gallery .section-heading {
+    margin-bottom: clamp(24px, 2.8vw, 36px);
+}
+
+.page-opportunities-section.section-gallery + .page-opportunities-section.section-editorial {
+    padding-top: clamp(12px, 1.4vw, 22px);
+}
+
+.page-opportunities-section.section-editorial {
+    gap: clamp(24px, 3.4vw, 48px);
+}
+
+.page-opportunities-section.section-editorial .feature-photo img {
+    aspect-ratio: 1.22 / 0.72;
+}
+
 .partner-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1705,6 +1783,14 @@ select {
         align-items: flex-start;
     }
 
+    .home-international-preview .split-media {
+        display: none;
+    }
+
+    .home-international-preview {
+        display: block;
+    }
+
     .gallery {
         grid-template-columns: 1fr;
     }
@@ -1837,6 +1923,23 @@ select {
 
     .section {
         padding: 28px 20px;
+    }
+
+    .page-opportunities-section {
+        padding-top: 22px;
+        padding-bottom: 22px;
+    }
+
+    .page-opportunities-section.section-gallery {
+        padding-bottom: 12px;
+    }
+
+    .page-opportunities-section.section-gallery .section-heading {
+        margin-bottom: 18px;
+    }
+
+    .page-opportunities-section.section-gallery + .page-opportunities-section.section-editorial {
+        padding-top: 12px;
     }
 
     .section,
@@ -2031,6 +2134,10 @@ select {
         min-height: auto;
     }
 
+    .split-feature .split-media {
+        display: none;
+    }
+
     .feature-photo img,
     .split-media img,
     .history-photo,
@@ -2141,5 +2248,15 @@ select {
 @media (min-width: 641px) {
     .mobile-quickbar {
         display: none;
+    }
+}
+
+@media (max-width: 980px) {
+    .home-international-preview .split-media {
+        display: none !important;
+    }
+
+    .home-international-preview {
+        display: block !important;
     }
 }

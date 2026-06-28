@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.db import OperationalError, ProgrammingError
 from django.shortcuts import render
+from django.templatetags.static import static
 
 from .models import NewsItem
 
@@ -332,14 +333,27 @@ NEWS_ITEMS = [
 
 def get_news_items():
     try:
-        items = list(
-            NewsItem.objects.filter(is_published=True)
-            .order_by("order", "-created_at")
-            .values("category", "date", "title", "text", "image")
-        )
+        items = []
+        for item in NewsItem.objects.filter(is_published=True).order_by("order", "-created_at"):
+            if item.image_file:
+                image_url = item.image_file.url
+            elif item.image:
+                image_url = static(item.image)
+            else:
+                image_url = static(ASSET["lyceum_news"])
+            items.append(
+                {
+                    "category": item.category,
+                    "date": item.date,
+                    "title": item.title,
+                    "text": item.text,
+                    "image": item.image,
+                    "image_url": image_url,
+                }
+            )
     except (OperationalError, ProgrammingError):
-        return NEWS_ITEMS
-    return items or NEWS_ITEMS
+        return [{**item, "image_url": static(item["image"])} for item in NEWS_ITEMS]
+    return items or [{**item, "image_url": static(item["image"])} for item in NEWS_ITEMS]
 
 PAGES = {
     "about": {
@@ -633,6 +647,7 @@ def page(request, slug):
         raise Http404("Page not found") from exc
     context = base_context(slug)
     context["page"] = page_data.copy()
+    context["page"]["slug"] = slug
     if slug == "news":
         context["page"]["sections"] = [
             {**section, "items": get_news_items()} if section.get("kind") == "news" else section

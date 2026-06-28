@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="page-hero" style="--hero-image: url('{% static page.hero %}')">
+<section class="page-hero page-{{ page.slug }}" style="--hero-image: url('{% static page.hero %}')">
     <div class="hero-shade"></div>
     <div class="page-hero-content reveal">
         <h1>{{ page.title }}</h1>
@@ -18,7 +18,7 @@
 
 {% for section in page.sections %}
     {% if section.kind == "editorial" %}
-        <section class="section editorial-grid">
+        <section class="section editorial-grid page-{{ page.slug }}-section section-editorial">
             <div class="section-copy reveal">
                 <p class="eyebrow">{{ section.eyebrow }}</p>
                 <h2>{{ section.title }}</h2>
@@ -30,7 +30,7 @@
             </figure>
         </section>
     {% elif section.kind == "history" %}
-        <section class="section history-section">
+        <section class="section history-section page-{{ page.slug }}-section section-history">
             <div class="section-heading reveal">
                 <p class="eyebrow">Timeline</p>
                 <h2>{{ section.title }}</h2>
@@ -48,7 +48,7 @@
             </div>
         </section>
     {% elif section.kind == "features" %}
-        <section class="section soft-band">
+        <section class="section soft-band page-{{ page.slug }}-section section-features">
             <div class="section-heading reveal">
                 <p class="eyebrow">Ak Suu</p>
                 <h2>{{ section.title }}</h2>
@@ -69,7 +69,7 @@
             </div>
         </section>
     {% elif section.kind == "management" %}
-        <section class="section management-section">
+        <section class="section management-section page-{{ page.slug }}-section section-management">
             <div class="section-heading reveal">
                 <p class="eyebrow">Команда</p>
                 <h2>{{ section.title }}</h2>
@@ -84,20 +84,20 @@
             </div>
         </section>
     {% elif section.kind == "programs" %}
-        <section class="section">
+        <section class="section page-{{ page.slug }}-section section-programs">
             <div class="section-heading reveal">
                 <p class="eyebrow">Programs</p>
                 <h2>{{ section.title }}</h2>
             </div>
             <div class="program-grid program-grid-large">
                 {% for program in section.items %}
-                    <article class="program-card reveal">
+                    <article class="program-card reveal" data-program-card tabindex="0">
                         <img src="{% static program.image %}" alt="" loading="lazy" decoding="async">
                         <div>
                             <span>{{ program.duration }}</span>
                             <h3>{{ program.title }}</h3>
                             <p>{{ program.text }}</p>
-                            <dl class="program-details">
+                            <dl class="program-details" data-program-details>
                                 <div>
                                     <dt>Что делает специалист</dt>
                                     <dd>{{ program.does }}</dd>
@@ -119,6 +119,12 @@
                                     <dd>{{ program.practice }}</dd>
                                 </div>
                             </dl>
+                            <button class="program-details-toggle" type="button" data-program-details-toggle aria-expanded="false">
+                                <span>Больше</span>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
                             <div class="skill-cloud" aria-label="Ключевые навыки">
                                 {% for skill in program.skills %}
                                     <span>{{ skill }}</span>
@@ -131,7 +137,7 @@
             </div>
         </section>
     {% elif section.kind == "insights" %}
-        <section class="section soft-band">
+        <section class="section soft-band page-{{ page.slug }}-section section-insights">
             <div class="section-heading reveal">
                 <p class="eyebrow">{{ section.eyebrow }}</p>
                 <h2>{{ section.title }}</h2>
@@ -147,7 +153,7 @@
             </div>
         </section>
     {% elif section.kind == "short_courses" %}
-        <section class="section short-courses">
+        <section class="section short-courses page-{{ page.slug }}-section section-short-courses">
             <div class="section-copy reveal">
                 <p class="eyebrow">3 месяца</p>
                 <h2>{{ section.title }}</h2>
@@ -160,7 +166,7 @@
             </div>
         </section>
     {% elif section.kind == "admission" %}
-        <section class="section admission-layout">
+        <section class="section admission-layout page-{{ page.slug }}-section section-admission">
             <div class="section-copy reveal">
                 <p class="eyebrow">Информация</p>
                 <h2>{{ section.title }}</h2>
@@ -188,7 +194,7 @@
             </div>
         </section>
     {% elif section.kind == "timeline" %}
-        <section class="section timeline-section">
+        <section class="section timeline-section page-{{ page.slug }}-section section-timeline">
             <div class="section-heading reveal">
                 <p class="eyebrow">Timeline</p>
                 <h2>{{ section.title }}</h2>
@@ -203,7 +209,7 @@
             </div>
         </section>
     {% elif section.kind == "metrics" %}
-        <section class="fact-strip fact-strip-contained">
+        <section class="fact-strip fact-strip-contained page-{{ page.slug }}-section section-metrics">
             {% for number, label in section.items %}
                 <div>
                     <strong>{{ number }}</strong>
@@ -212,7 +218,7 @@
             {% endfor %}
         </section>
     {% elif section.kind == "gallery" %}
-        <section class="section">
+        <section class="section page-{{ page.slug }}-section section-gallery">
             <div class="section-heading reveal">
                 <p class="eyebrow">Campus</p>
                 <h2>{{ section.title }}</h2>
@@ -224,7 +230,7 @@
             </div>
         </section>
     {% elif section.kind == "partners" %}
-        <section class="section soft-band">
+        <section class="section soft-band page-{{ page.slug }}-section section-partners">
             <div class="section-heading reveal">
                 <p class="eyebrow">Partners</p>
                 <h2>{{ section.title }}</h2>
@@ -244,7 +250,7 @@
             </div>
         </section>
     {% elif section.kind == "news" %}
-        <section class="section">
+        <section class="section page-{{ page.slug }}-section section-news">
             <div class="section-heading reveal">
                 <p class="eyebrow">News</p>
                 <h2>{{ section.title }}</h2>
@@ -258,7 +264,7 @@
             <div class="news-grid">
                 {% for item in section.items %}
                     <article class="news-card reveal" data-news-category="{{ item.category }}">
-                        <img src="{% static item.image %}" alt="" loading="lazy" decoding="async">
+                        <img src="{{ item.image_url }}" alt="" loading="lazy" decoding="async">
                         <div>
                             <span>{{ item.category }} · {{ item.date }}</span>
                             <h3>{{ item.title }}</h3>
@@ -269,7 +275,7 @@
             </div>
         </section>
     {% elif section.kind == "contacts" %}
-        <section class="section contacts-layout">
+        <section class="section contacts-layout page-{{ page.slug }}-section">
             <div class="contact-panel reveal">
                 <p class="eyebrow">Мы на связи</p>
                 <h2>Республиканский инновационный туристический профессиональный лицей «Ак-Суу»</h2>

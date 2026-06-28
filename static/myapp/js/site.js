@@ -99,6 +99,57 @@ document.querySelectorAll("[data-accordion]").forEach((accordion) => {
     });
 });
 
+document.querySelectorAll("[data-program-card]").forEach((card) => {
+    const toggleButton = card.querySelector("[data-program-details-toggle]");
+    const toggleLabel = toggleButton?.querySelector("span");
+    const details = card.querySelector("[data-program-details]");
+    const hiddenDetailsCount = details ? details.children.length - 1 : 0;
+    const toggleText = {
+        ru: { more: "Больше", less: "Свернуть" },
+        ky: { more: "Көбүрөөк", less: "Жыйуу" },
+        en: { more: "More", less: "Collapse" }
+    };
+
+    if (!toggleButton || hiddenDetailsCount <= 0) {
+        toggleButton?.remove();
+        return;
+    }
+
+    const getToggleText = () => toggleText[document.documentElement.lang] || toggleText.ru;
+
+    const setProgramExpanded = (isExpanded) => {
+        card.classList.toggle("is-expanded", isExpanded);
+        toggleButton.setAttribute("aria-expanded", String(isExpanded));
+        if (toggleLabel) {
+            const labels = getToggleText();
+            toggleLabel.textContent = isExpanded ? labels.less : labels.more;
+        }
+    };
+
+    const toggleProgram = () => {
+        setProgramExpanded(!card.classList.contains("is-expanded"));
+    };
+
+    toggleButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        toggleProgram();
+    });
+
+    card.addEventListener("click", (event) => {
+        if (event.target.closest("a, button, input, textarea, select")) return;
+        toggleProgram();
+    });
+
+    card.addEventListener("keydown", (event) => {
+        if (event.target.closest("a, button, input, textarea, select")) return;
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            toggleProgram();
+        }
+    });
+
+});
+
 document.querySelectorAll("[data-card-link]").forEach((card) => {
     const openCard = () => {
         const url = card.dataset.cardLink;
