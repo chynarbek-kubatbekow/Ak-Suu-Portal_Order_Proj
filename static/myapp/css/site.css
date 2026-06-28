@@ -1102,6 +1102,26 @@ select {
     padding-left: 20px;
 }
 
+.section-admission .document-list {
+    min-height: clamp(340px, 31vw, 430px);
+}
+
+.section-admission .document-list ul {
+    margin-top: 28px;
+}
+
+.section-admission .document-list li {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: rgba(232, 239, 234, 0.48);
+    line-height: 1.5;
+}
+
+.section-admission .document-list li::marker {
+    color: var(--teal);
+}
+
 .accordion-trigger {
     width: 100%;
     display: flex;
@@ -2258,5 +2278,21 @@ select {
 
     .home-international-preview {
         display: block !important;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 980px) {
+    .timeline {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .section-admission .document-list {
+        min-height: 0;
+    }
+
+    .section-admission .document-list li {
+        padding: 6px 8px;
     }
 }
