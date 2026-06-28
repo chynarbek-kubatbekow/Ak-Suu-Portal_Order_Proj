@@ -73,6 +73,20 @@ img {
     max-width: 100%;
 }
 
+h1,
+h2,
+h3,
+p,
+li,
+dd,
+dt,
+a,
+span,
+strong,
+small {
+    overflow-wrap: anywhere;
+}
+
 a {
     color: inherit;
     text-decoration: none;
@@ -1709,12 +1723,14 @@ select {
         min-height: 60px;
         border-bottom: 1px solid var(--line);
         font-size: 19px;
+        font-weight: 600;
         line-height: 1.25;
     }
 
     .main-nav a::before {
         content: attr(data-full);
         font-size: 19px;
+        font-weight: 600;
     }
 
     .main-nav a {
@@ -1749,7 +1765,7 @@ select {
         padding: 0 12px;
         background: transparent;
         color: var(--deep);
-        font-weight: 800;
+        font-weight: 600;
     }
 
     .mobile-menu-actions {
@@ -1945,6 +1961,35 @@ select {
         padding: 28px 20px;
     }
 
+    .site-header,
+    .home-hero,
+    .page-hero,
+    .section,
+    .fact-strip,
+    .mobile-priority,
+    .international-band,
+    .contact-cta,
+    .site-footer {
+        max-width: 100vw;
+    }
+
+    .section > *,
+    .hero-content,
+    .page-hero-content,
+    .program-card,
+    .news-card,
+    .feature-card,
+    .opportunity-card,
+    .insight-card,
+    .timeline-item,
+    .partner-card,
+    .document-list,
+    .contact-panel,
+    .split-panel,
+    .fact-strip div {
+        min-width: 0;
+    }
+
     .page-opportunities-section {
         padding-top: 22px;
         padding-bottom: 22px;
@@ -1982,6 +2027,8 @@ select {
     .contact-panel h2 {
         font-size: clamp(24px, 7.4vw, 32px);
         line-height: 1.12;
+        overflow-wrap: anywhere;
+        hyphens: auto;
     }
 
     .section-heading p:not(.eyebrow),
@@ -2021,8 +2068,11 @@ select {
     }
 
     .fact-strip strong {
-        font-size: clamp(23px, 7.2vw, 31px);
+        max-width: 100%;
+        font-size: clamp(18px, 5.4vw, 24px);
         line-height: 0.98;
+        overflow-wrap: anywhere;
+        hyphens: auto;
     }
 
     .fact-strip span {
