@@ -1,9 +1,13 @@
 from django.http import Http404
+from django.db import OperationalError, ProgrammingError
 from django.shortcuts import render
+
+from .models import NewsItem
 
 
 ASSET = {
-    "logo_mark": "myapp/images/brand/ak-suu-mark.png",
+    "logo_mark": "myapp/images/brand/ak-suu-mark-ui.webp",
+    "favicon": "myapp/images/brand/ak-suu-favicon.png",
     "hero": "myapp/images/content/kyrgyzstan-lake-unsplash-eldiiar-opt.webp",
     "home_editorial": "myapp/images/content/issyk-kul-aerial-sunset-opt.webp",
     "home_split": "myapp/images/content/kyrgyzstan-nomad-yurt-opt.webp",
@@ -22,28 +26,28 @@ ASSET = {
     "ala_kul_trek_valley": "myapp/images/content/ala-kul-trek-valley-opt.webp",
     "chong_kemin_road": "myapp/images/content/chong-kemin-road-opt.webp",
     "hotel_lobby_commons": "myapp/images/content/hotel-lobby-commons-opt.webp",
-    "hotel_school_students": "myapp/images/content/hotel-school-students-opt.webp",
+    "hotel_school_students": "myapp/images/content/hospitality-students-opt.webp",
     "open_kitchen_commons": "myapp/images/content/open-kitchen-staff-commons-opt.webp",
     "culinary_class_commons": "myapp/images/content/culinary-class-commons-opt.webp",
-    "klessheim_visit": "myapp/images/content/klessheim-visit-opt.webp",
-    "klessheim_students": "myapp/images/content/klessheim-students-opt.webp",
+    "austria_visit": "myapp/images/content/austria-visit-opt.webp",
+    "international_students": "myapp/images/content/international-students-opt.webp",
     "hospitality_students": "myapp/images/content/hospitality-students-opt.webp",
     "lyceum_students": "myapp/images/content/ak-suu-lyceum-visit-opt.webp",
     "lyceum_collage": "myapp/images/content/ak-suu-ministry-visit-opt.webp",
     "lyceum_news": "myapp/images/content/ak-suu-kutbilim-visit-opt.webp",
-    "issyk_winter": "myapp/images/content/kyrgyzstan-lake-unsplash-slastnikova-opt.webp",
+    "issyk_winter": "myapp/images/content/kyrgyzstan-lake-unsplash-eldiiar-opt.webp",
     "yurt_camp": "myapp/images/content/issyk-kul-yurt-rinat-opt.webp",
     "yurt_field": "myapp/images/content/kyrgyzstan-yurts-field-opt.webp",
     "hotel_reception": "myapp/images/content/hotel-reception-desk-opt.webp",
     "hotel_lobby": "myapp/images/content/hotel-lobby-staff-opt.webp",
-    "kitchen": "myapp/images/content/restaurant-kitchen-cooking-opt.webp",
+    "kitchen": "myapp/images/content/hospitality-kitchen-opt.webp",
     "chefs": "myapp/images/content/chefs-open-kitchen-opt.webp",
     "tourists": "myapp/images/content/tourists-mountain-walk-opt.webp",
     "cable_car": "myapp/images/content/mountain-cable-car-opt.webp",
     "forest_cable": "myapp/images/content/forest-cable-car-opt.webp",
     "mountain_bike": "myapp/images/content/kyrgyzstan-mountain-bike-opt.webp",
-    "road_bike": "myapp/images/content/kyrgyzstan-road-bike-opt.webp",
-    "river_valley": "myapp/images/content/kyrgyzstan-river-valley-opt.webp",
+    "road_bike": "myapp/images/content/kyrgyzstan-mountain-bike-opt.webp",
+    "river_valley": "myapp/images/content/ala-kul-trek-valley-opt.webp",
     "altyn_arashan": "myapp/images/content/altyn-arashan-road-opt.webp",
     "issyk_road": "myapp/images/content/issyk-kul-aerial-road-opt.webp",
     "kayak": "myapp/images/content/kayak-mountain-lake-opt.webp",
@@ -157,7 +161,7 @@ PROGRAM_INSIGHTS = [
     },
     {
         "title": "Международный ориентир",
-        "text": "Содержание программ развивается с опорой на опыт австрийской туристической школы Klessheim: больше практики, чёткие стандарты сервиса, дисциплина, эргономика учебной среды и подготовка преподавателей.",
+        "text": "Содержание программ развивается с опорой на международный опыт туристического образования: больше практики, чёткие стандарты сервиса, дисциплина, эргономика учебной среды и подготовка преподавателей.",
     },
     {
         "title": "Социальная доступность",
@@ -204,7 +208,7 @@ FUTURE_PROGRAMS = [
     {
         "title": "Двойные сертификаты",
         "text": "К 2035 году концепция предполагает движение к сертификатам, сопоставимым с международными стандартами.",
-        "tag": "Klessheim",
+        "tag": "международный уровень",
     },
     {
         "title": "Устойчивый туризм",
@@ -253,11 +257,6 @@ PARTNERS = [
         "text": "Будущий горнолыжный кластер в Ак-Суйском районе формирует спрос на кадры для гостиничного сервиса, питания, туризма и обслуживания гостей.",
     },
     {
-        "title": "Klessheim Tourism School",
-        "role": "международная методика",
-        "text": "Австрийский опыт используется для программ, подготовки преподавателей, практической модели и гармонизации стандартов с международными требованиями.",
-    },
-    {
         "title": "Ak-Sai Travel",
         "role": "маршруты и гиды",
         "text": "Партнёрство усиливает подготовку проводников, инструкторов и специалистов активного туризма через реальные маршруты Кыргызстана.",
@@ -287,7 +286,7 @@ ADMISSION_DOCS = [
 HISTORY_MILESTONES = [
     ("Историческая база", "на месте будущего лицея работало профтехучилище Ак-Суйского района, ориентированное на прикладные рабочие профессии для региона"),
     ("2024-2025", "на фоне строительства «Ала-Тоо Резорт» появилась потребность в новой школе сервиса, туризма, питания и гостиничного дела"),
-    ("7-11 апреля 2026", "делегация Кыргызстана изучила опыт Зальцбурга и туристической школы Klessheim для адаптации европейской модели"),
+    ("7-11 апреля 2026", "делегация Кыргызстана изучила международный опыт туристического образования для адаптации современной практической модели"),
     ("27 апреля 2026", "учреждение прошло государственную перерегистрацию как Республиканский инновационный туристический профессиональный лицей «Ак-Суу»"),
     ("10-11 июня 2026", "прошла инспекция кампуса, представлены планы развития и объявлен первый набор абитуриентов"),
 ]
@@ -330,6 +329,18 @@ NEWS_ITEMS = [
     },
 ]
 
+
+def get_news_items():
+    try:
+        items = list(
+            NewsItem.objects.filter(is_published=True)
+            .order_by("order", "-created_at")
+            .values("category", "date", "title", "text", "image")
+        )
+    except (OperationalError, ProgrammingError):
+        return NEWS_ITEMS
+    return items or NEWS_ITEMS
+
 PAGES = {
     "about": {
         "title": "О лицее",
@@ -361,7 +372,7 @@ PAGES = {
                         "tag": "практика",
                     },
                     {
-                        "title": "Ориентир Klessheim",
+                        "title": "Международный ориентир качества",
                         "text": "Австрийская школа сервиса используется как методический стандарт для дисциплины, эргономики и качества.",
                         "tag": "международный уровень",
                     },
@@ -474,7 +485,7 @@ PAGES = {
             {
                 "kind": "gallery",
                 "title": "Среда практики и международного обмена",
-                "images": [ASSET["river_valley"], ASSET["klessheim_students"], ASSET["road_bike"]],
+                "images": [ASSET["river_valley"], ASSET["international_students"], ASSET["road_bike"]],
             },
             {
                 "kind": "editorial",
@@ -489,7 +500,7 @@ PAGES = {
         "title": "Партнёры",
         "breadcrumb": "Главная / Партнёры",
         "hero": ASSET["partners_hero"],
-        "lead": "Партнёрская модель связывает лицей с государством, австрийской образовательной экспертизой, инвесторами и реальными работодателями туристической отрасли.",
+        "lead": "Партнёрская модель связывает лицей с государством, международной образовательной экспертизой, инвесторами и реальными работодателями туристической отрасли.",
         "sections": [
             {"kind": "partners", "title": "Подтверждённые партнёры", "items": PARTNERS},
             {
@@ -505,14 +516,14 @@ PAGES = {
         "title": "Международное сотрудничество",
         "breadcrumb": "Главная / Международное сотрудничество",
         "hero": ASSET["international_hero"],
-        "lead": "Международный вектор лицея связан с Австрией, Зальцбургом и туристической школой Klessheim, чей опыт используется для модернизации программ и кампуса.",
+        "lead": "Международный вектор лицея связан с изучением современных моделей туристического образования, чей опыт используется для модернизации программ и кампуса.",
         "sections": [
             {
                 "kind": "editorial",
                 "eyebrow": "Австрия",
                 "title": "Адаптация европейской модели к условиям Иссык-Куля",
                 "text": "Рабочая поездка в Зальцбург помогла определить, каким должен быть кампус туристического лицея: практичные учебные зоны, современная кухня, учебный ресторан, IT-полигон и подготовка преподавателей под реальные стандарты индустрии.",
-                "image": ASSET["klessheim_visit"],
+                "image": ASSET["austria_visit"],
                 "quote": "Цель сотрудничества — не скопировать европейскую школу, а перенести её дисциплину сервиса, практику и требования качества в условия Иссык-Куля.",
             },
             {
@@ -520,7 +531,7 @@ PAGES = {
                 "title": "Направления сотрудничества",
                 "items": [
                     {
-                        "title": "Стандарты Klessheim",
+                        "title": "Международные стандарты сервиса",
                         "text": "Учебные программы приводятся к логике европейской практико-ориентированной школы гостеприимства.",
                         "tag": "качество",
                     },
@@ -541,7 +552,7 @@ PAGES = {
                     },
                 ],
             },
-            {"kind": "metrics", "items": [("AED", "австрийское партнёрство"), ("Клессхайм", "туристическая школа"), ("2026", "рабочий визит")]}
+            {"kind": "metrics", "items": [("AED", "международная экспертиза"), ("2026", "рабочий визит")]}
         ],
     },
     "concept": {
@@ -608,7 +619,7 @@ def home(request):
             "future_programs": FUTURE_PROGRAMS,
             "opportunities": OPPORTUNITIES,
             "partners": PARTNERS,
-            "news_items": NEWS_ITEMS,
+            "news_items": get_news_items(),
             "history": HISTORY_MILESTONES,
         }
     )
@@ -621,5 +632,10 @@ def page(request, slug):
     except KeyError as exc:
         raise Http404("Page not found") from exc
     context = base_context(slug)
-    context["page"] = page_data
+    context["page"] = page_data.copy()
+    if slug == "news":
+        context["page"]["sections"] = [
+            {**section, "items": get_news_items()} if section.get("kind") == "news" else section
+            for section in page_data["sections"]
+        ]
     return render(request, "myapp/page.html", context)

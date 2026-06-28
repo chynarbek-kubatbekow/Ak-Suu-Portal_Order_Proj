@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from .models import NewsItem
 from .views import PAGES
 
 
@@ -32,4 +33,17 @@ class PublicPagesTests(TestCase):
 
         self.assertEqual(response.status_code, 404)
 
-# Create your tests here.
+    def test_news_page_uses_published_database_news(self):
+        NewsItem.objects.create(
+            title="Admin Test News",
+            category=NewsItem.CATEGORY_DEVELOPMENT,
+            date="2026",
+            text="Editable from Django admin.",
+            image="myapp/images/content/ak-suu-kutbilim-visit-opt.webp",
+            order=1,
+        )
+
+        response = self.client.get(reverse("page", args=["news"]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Admin Test News")

@@ -40,8 +40,21 @@ if (header && toggle) {
 }
 
 const reveals = document.querySelectorAll(".reveal");
+const lazyBackgrounds = document.querySelectorAll("[data-lazy-bg]");
+const isHeroReveal = (element) => element.closest(".home-hero, .page-hero");
+
+const loadLazyBackground = (element) => {
+    element.style.setProperty("--band-image", `url('${element.dataset.lazyBg}')`);
+    element.removeAttribute("data-lazy-bg");
+};
 
 if ("IntersectionObserver" in window) {
+    reveals.forEach((element) => {
+        if (isHeroReveal(element)) {
+            element.classList.add("is-visible");
+        }
+    });
+
     const observer = new IntersectionObserver(
         (entries) => {
             entries.forEach((entry) => {
@@ -51,12 +64,31 @@ if ("IntersectionObserver" in window) {
                 }
             });
         },
-        { threshold: 0.12 }
+        { rootMargin: "160px 0px -24px", threshold: 0.04 }
     );
 
-    reveals.forEach((element) => observer.observe(element));
+    reveals.forEach((element) => {
+        if (!isHeroReveal(element)) {
+            observer.observe(element);
+        }
+    });
+
+    const backgroundObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    loadLazyBackground(entry.target);
+                    backgroundObserver.unobserve(entry.target);
+                }
+            });
+        },
+        { rootMargin: "420px 0px" }
+    );
+
+    lazyBackgrounds.forEach((element) => backgroundObserver.observe(element));
 } else {
     reveals.forEach((element) => element.classList.add("is-visible"));
+    lazyBackgrounds.forEach(loadLazyBackground);
 }
 
 document.querySelectorAll("[data-accordion]").forEach((accordion) => {
