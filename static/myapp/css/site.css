@@ -1903,8 +1903,9 @@ select {
     }
 
     .page-hero {
-        height: 252px;
-        padding: calc(var(--header-height) + 18px) 20px 26px;
+        height: auto;
+        min-height: clamp(360px, 58svh, 430px);
+        padding: calc(var(--header-height) + 44px) 20px 32px;
     }
 
     .hero-content h1,
@@ -2344,5 +2345,20 @@ select {
 
     .section-admission .document-list li {
         padding: 6px 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    .main-nav a {
+        min-height: 0;
+        padding: 17px 0;
+        white-space: normal;
+    }
+
+    .main-nav a::before {
+        max-width: 100%;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        line-height: 1.25;
     }
 }
