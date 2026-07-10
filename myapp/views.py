@@ -1,4 +1,4 @@
-# Copyright (c) 2026 Kubatbek uulu Chynarbek. All rights reserved.
+# Copyright (c) 2026 Ak-Suu Portal Project Team. All rights reserved.
 # Proprietary software. See LICENSE for terms.
 from django.http import Http404
 from django.db import OperationalError, ProgrammingError

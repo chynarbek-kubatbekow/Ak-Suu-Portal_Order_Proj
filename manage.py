@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Copyright (c) 2026 Kubatbek uulu Chynarbek. All rights reserved.
+# Copyright (c) 2026 Ak-Suu Portal Project Team. All rights reserved.
 # Proprietary software. See LICENSE for terms.
 """Django's command-line utility for administrative tasks."""
 import os

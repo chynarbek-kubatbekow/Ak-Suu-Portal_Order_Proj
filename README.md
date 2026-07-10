@@ -2,9 +2,13 @@
 
 ## License
 
-This project is proprietary software. Copyright (c) 2026 Kubatbek uulu Chynarbek. All rights reserved.
+This project is proprietary software. Copyright (c) 2026 Ak-Suu Portal Project Team. All rights reserved.
 
-The project is not open-source. Copying, modifying, publishing, distributing, reselling, sublicensing, transferring, reverse engineering, decompiling, reusing, or creating derivative works is prohibited without prior written permission from Kubatbek uulu Chynarbek.
+The project is not open-source. Copying, modifying, publishing, distributing, reselling, sublicensing, transferring, reverse engineering, decompiling, reusing, or creating derivative works is prohibited without prior written permission from the Ak-Suu Portal Project Team or its authorized representative.
+
+Authorized administrators may edit website news and other editable content through the provided admin panel. This does not transfer ownership of the source code, admin panel code, backend logic, frontend components, database structure, API logic, design, or project architecture.
+
+Rights belong to the contributors responsible for their own project aspects: technical implementation and code, design, research and data, product direction, project management, and team leadership are protected as separate contribution areas as well as part of the combined proprietary project.
 
 See [LICENSE](LICENSE) for the full proprietary software license.
 
