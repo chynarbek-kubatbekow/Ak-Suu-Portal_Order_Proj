@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2026 Kubatbek uulu Chynarbek. All rights reserved.
+ * Proprietary software. See LICENSE for terms.
+ */
+
 const header = document.querySelector("[data-header]");
 const toggle = document.querySelector("[data-menu-toggle]");
 const closeButton = document.querySelector("[data-menu-close]");

@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Kubatbek uulu Chynarbek. All rights reserved.
+# Proprietary software. See LICENSE for terms.
 """
 ASGI config for myproject project.
 

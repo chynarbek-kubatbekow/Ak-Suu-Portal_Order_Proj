@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Kubatbek uulu Chynarbek. All rights reserved.
+# Proprietary software. See LICENSE for terms.
 from django.contrib import admin
 from django.templatetags.static import static
 from django.utils.html import format_html

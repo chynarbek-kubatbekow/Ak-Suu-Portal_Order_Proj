@@ -1,5 +1,13 @@
 # Ak-Suu Tourism Lyceum Portal
 
+## License
+
+This project is proprietary software. Copyright (c) 2026 Kubatbek uulu Chynarbek. All rights reserved.
+
+The project is not open-source. Copying, modifying, publishing, distributing, reselling, sublicensing, transferring, reverse engineering, decompiling, reusing, or creating derivative works is prohibited without prior written permission from Kubatbek uulu Chynarbek.
+
+See [LICENSE](LICENSE) for the full proprietary software license.
+
 Современный информационный сайт для Республиканского инновационного туристического профессионального лицея Ак-Суу. Проект собран как имиджевый и прикладной сайт для абитуриентов, родителей, партнеров и представителей туристической отрасли Кыргызстана.
 
 ## О продукте

@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Kubatbek uulu Chynarbek. All rights reserved.
+# Proprietary software. See LICENSE for terms.
 from django.http import Http404
 from django.db import OperationalError, ProgrammingError
 from django.shortcuts import render
