@@ -30,15 +30,27 @@ No permission is granted to any person or organization to copy, modify, distribu
 
 Unauthorized use of this software or any project materials is strictly prohibited.
 
-The client, if any, receives only a limited right to use the final deployed website or application for the agreed purpose and, if applicable, on the agreed domain. This limited usage right does not include ownership of the source code, backend logic, frontend components, admin panel, admin panel code, database structure, API logic, project architecture, design materials, research materials, data materials, product materials, project management materials, or any internal technical and project materials.
+Grant of License:
+
+Subject to this License, the related agreement, and the act of transfer, the client is granted a limited, non-exclusive, non-transferable, non-sublicensable license to use the final deployed website or application only for its intended purpose and, if applicable, only on the agreed domain or hosting environment.
+
+This license does not transfer ownership, copyright, exclusive rights, intellectual property rights, or any proprietary rights in the source code, backend logic, frontend components, admin panel, admin panel code, database structure, API logic, technical architecture, design materials, research materials, data materials, product materials, project management materials, documentation, deployment files, or any other internal project materials.
+
+Permitted Use:
+
+The client and authorized website administrators may use the deployed website for the client's official activity and agreed business, educational, informational, or institutional purposes.
 
 Authorized website administrators may use the provided admin panel to create, edit, publish, hide, and delete website news and other editable website content that is intentionally exposed through the admin panel. This permission is limited only to normal content management inside the deployed website and does not grant any right to access, copy, modify, reuse, distribute, transfer, or claim ownership of the source code, backend logic, frontend components, admin panel code, database structure, API logic, project architecture, design system, deployment files, or other internal project materials.
+
+The client may add and change website content only where such functionality is intentionally provided through the administrative panel or another approved content management interface.
 
 Access to the website, admin panel, hosting, server, repository, database, or deployed application does not mean transfer of ownership or transfer of exclusive rights.
 
 The source code and related project materials may only be transferred under a separate written agreement signed or clearly approved by the relevant rights holder, the Ak-Suu Portal Project Team, or an authorized representative. Without such written agreement, all rights to the source code and related materials remain reserved by the relevant rights holder and the Ak-Suu Portal Project Team.
 
-It is strictly forbidden to:
+Restrictions:
+
+Unless separate prior written permission is granted by the relevant rights holder, the Ak-Suu Portal Project Team, or an authorized representative, it is strictly forbidden to:
 
 1. Copy this software or any part of it.
 2. Modify, adapt, translate, or reuse this software, except for authorized editing of website news and editable content through the provided admin panel.
@@ -51,7 +63,17 @@ It is strictly forbidden to:
 9. Use the database structure, admin panel code, API logic, backend logic, frontend components, design materials, research materials, data materials, product materials, or project management materials separately from the original project.
 10. Bypass technical restrictions, domain restrictions, authentication systems, license checks, API limitations, role systems, or access control mechanisms.
 
+The client may not modify the source code, backend logic, frontend logic, project architecture, database structure, API logic, admin panel code, deployment logic, design system, or technical configuration without separate prior written permission.
+
+The client may not sell, transfer, assign, sublicense, lease, publish, copy, clone, reuse, or create derivative websites, applications, templates, products, or projects based on this website, its code, design, data structure, architecture, or project materials.
+
 Any unauthorized copying, publication, distribution, modification, resale, transfer, or use of this software or project materials will be considered a violation of the rights of the relevant rights holder and the Ak-Suu Portal Project Team.
+
+Ownership of Rights:
+
+All exclusive rights, copyright, ownership rights, and intellectual property rights in the source code, technical architecture, backend logic, frontend components, admin panel code, API logic, database structure, scripts, configuration, deployment logic, design, UI/UX, design system, documentation, research materials, data materials, product materials, project management materials, and other project materials remain with the Ak-Suu Portal Project Team and the corresponding individual rights holders responsible for those contribution areas.
+
+No ownership rights are assigned, sold, transferred, or otherwise granted to the client unless a separate written agreement expressly states such transfer and is signed or clearly approved by the relevant rights holder, the Ak-Suu Portal Project Team, or an authorized representative.
 
 In case of violation, the relevant rights holder and the Ak-Suu Portal Project Team reserve the right to demand:
 
@@ -62,6 +84,24 @@ In case of violation, the relevant rights holder and the Ak-Suu Portal Project T
 5. Compensation for damages.
 6. Legal protection of rights in court and through other available legal methods.
 7. Complaints to hosting providers, domain registrars, GitHub, GitLab, marketplaces, cloud platforms, and other relevant services.
+
+License Term and Termination:
+
+This License is dated July 11, 2026. Ownership rights in each contribution are recognized from the moment the corresponding code, design, data, research, product material, project material, or other work product was created.
+
+The license granted to the client for use of the deployed website enters into force on July 11, 2026, or on the date when the website, access credentials, agreement, or act of transfer is provided or approved, whichever occurs first.
+
+The license remains valid while the client complies with this License, the related agreement, and the act of transfer. The license may be terminated immediately if the client or any third party acting through the client violates this License, exceeds the permitted use, attempts to claim ownership, copies or transfers project materials, modifies restricted technical materials, removes copyright notices, sublicenses the website, or otherwise uses the project outside the permitted scope.
+
+Upon termination, the client must immediately stop all unauthorized use, remove unauthorized copies, and return or delete any project materials that were not expressly licensed for continued use.
+
+Relation to the Agreement:
+
+This License is an integral part of the related agreement, act of transfer, acceptance document, service arrangement, or other written approval between the parties and applies together with those documents.
+
+If the agreement or act of transfer grants the client access to the deployed website or administrative panel, such access is interpreted according to this License and does not transfer ownership of source code, architecture, design, data, documentation, or internal project materials.
+
+Any transfer of exclusive rights, source code, design ownership, data ownership, architecture ownership, or broader rights must be expressly stated in a separate written document. General access, deployment, acceptance, payment, use of the website, or access to the admin panel is not enough to transfer such rights.
 
 This software is not open-source.
 

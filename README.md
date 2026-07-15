@@ -12,6 +12,8 @@ Rights belong to the contributors responsible for their own project aspects: tec
 
 See [LICENSE](LICENSE) for the full proprietary software license.
 
+See [ACT_OF_TRANSFER.md](ACT_OF_TRANSFER.md) for the website handover act template.
+
 Современный информационный сайт для Республиканского инновационного туристического профессионального лицея Ак-Суу. Проект собран как имиджевый и прикладной сайт для абитуриентов, родителей, партнеров и представителей туристической отрасли Кыргызстана.
 
 ## О продукте
