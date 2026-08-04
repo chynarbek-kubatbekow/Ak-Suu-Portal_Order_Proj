@@ -6,6 +6,8 @@ This project is proprietary software. Copyright (c) 2026 Ak-Suu Portal Project T
 
 The project is not open-source. Copying, modifying, publishing, distributing, reselling, sublicensing, transferring, reverse engineering, decompiling, reusing, or creating derivative works is prohibited without prior written permission from the Ak-Suu Portal Project Team or its authorized representative.
 
+Authorship and attribution may not be removed, hidden, replaced, or misrepresented. Every authorized copy, publication, demonstration, transfer, portfolio reference, or other authorized use must clearly credit the Ak-Suu Portal Project Team and all six contributors named in the [LICENSE](LICENSE). Unauthorized appropriation of the project, source code, design, architecture, data, documentation, or other materials is prohibited and may constitute copyright infringement under applicable law.
+
 Authorized administrators may edit website news and other editable content through the provided admin panel. This does not transfer ownership of the source code, admin panel code, backend logic, frontend components, database structure, API logic, design, or project architecture.
 
 Rights belong to the contributors responsible for their own project aspects: technical implementation and code, design, research and data, product direction, project management, and team leadership are protected as separate contribution areas as well as part of the combined proprietary project.

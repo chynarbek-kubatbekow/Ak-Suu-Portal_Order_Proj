@@ -3,6 +3,12 @@ PROPRIETARY SOFTWARE LICENSE
 Copyright (c) 2026 Ak-Suu Portal Project Team
 All rights reserved.
 
+IMPORTANT COPYRIGHT AND ATTRIBUTION NOTICE
+
+The names of all project team members listed below, this copyright notice, and this License must be preserved in every authorized copy, deployment, transfer, presentation, publication, demonstration, portfolio reference, or other authorized use of the project or any substantial part of it. No person or organization may present the project, its source code, design, architecture, content structure, research, data, documentation, or other materials as their own work, or omit, replace, conceal, or misrepresent the authorship and contributions of any project team member.
+
+Permission to use any project material does not imply permission to remove attribution. Any exception must be expressly agreed in advance in a separate written document by every affected rights holder. Unauthorized copying, appropriation, plagiarism, publication, distribution, modification, sale, transfer, or removal or falsification of attribution is prohibited and may constitute copyright infringement or another violation under applicable law.
+
 Project name: Private Commercial Website
 Domain: not specified
 Rights holders / project team: Ak-Suu Portal Project Team
@@ -59,6 +65,8 @@ Unless separate prior written permission is granted by the relevant rights holde
 5. Transfer the source code or project files to third parties.
 6. Use this software in other websites, applications, commercial products, or client projects.
 7. Remove, hide, or change copyright notices.
+7.1. Remove, hide, abbreviate, replace, or falsify the names, roles, authorship, contribution information, copyright notices, or other attribution of any project team member.
+7.2. Claim or imply that the client, a contractor, a third party, an organization, or any other person created or owns the project or any protected part of it, except to the extent expressly stated in a written agreement signed or clearly approved by every affected rights holder.
 8. Reverse engineer, decompile, disassemble, or attempt to extract the internal logic of the software.
 9. Use the database structure, admin panel code, API logic, backend logic, frontend components, design materials, research materials, data materials, product materials, or project management materials separately from the original project.
 10. Bypass technical restrictions, domain restrictions, authentication systems, license checks, API limitations, role systems, or access control mechanisms.
@@ -68,6 +76,19 @@ The client may not modify the source code, backend logic, frontend logic, projec
 The client may not sell, transfer, assign, sublicense, lease, publish, copy, clone, reuse, or create derivative websites, applications, templates, products, or projects based on this website, its code, design, data structure, architecture, or project materials.
 
 Any unauthorized copying, publication, distribution, modification, resale, transfer, or use of this software or project materials will be considered a violation of the rights of the relevant rights holder and the Ak-Suu Portal Project Team.
+
+Attribution Requirement:
+
+Whenever use, display, transfer, publication, demonstration, or reference to the project is authorized, the attribution must identify the Ak-Suu Portal Project Team and all of the following contributors by name and role, unless every affected contributor has expressly approved different wording in writing:
+
+1. Sultanova Aliya - Team Lead.
+2. Satkynova Sabina - Product Manager.
+3. Ishenov Elmyrza - Project Manager.
+4. Kubatbek uulu Chynarbek - Tech Lead and Full-Stack Developer.
+5. Bakytbekov Almanbet - Website Designer.
+6. Feliksov Amir - Research and Website Data.
+
+Attribution must be clear, legible, reasonably prominent, and placed where authorship or credits are normally displayed. Attribution does not grant the attributed person, client, or third party any ownership or additional license rights. A general reference to the client, institution, or organization does not replace the required attribution to the project team and its individual contributors.
 
 Ownership of Rights:
 
@@ -84,6 +105,9 @@ In case of violation, the relevant rights holder and the Ak-Suu Portal Project T
 5. Compensation for damages.
 6. Legal protection of rights in court and through other available legal methods.
 7. Complaints to hosting providers, domain registrars, GitHub, GitLab, marketplaces, cloud platforms, and other relevant services.
+8. Correction and restoration of omitted, concealed, or false authorship and attribution information.
+
+No failure or delay by any rights holder in enforcing a right under this License constitutes a waiver of that right. No oral statement, informal message, access credential, payment, delivery, or technical access grants permission to copy, modify, transfer, publish, reuse, or remove attribution. Any such permission must be specific and in writing.
 
 License Term and Termination:
 
