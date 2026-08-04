@@ -50,6 +50,10 @@ Authorized website administrators may use the provided admin panel to create, ed
 
 The client may add and change website content only where such functionality is intentionally provided through the administrative panel or another approved content management interface.
 
+If source code or other internal project materials are expressly included in the Project Transfer Act or a separate written agreement, the client may make technical modifications to those transferred materials solely as reasonably necessary to operate, maintain, secure, and further develop the client's official website. This limited permission applies only to the official website identified in the transfer documents. It does not permit the client to reuse the project as a template, create another website or product from it, sell or sublicense it, publish its source code, remove attribution, or claim authorship or ownership of the original project or any team member's contribution.
+
+The client may engage third-party technical specialists to perform such authorized work only for the client's official website and only if those specialists are bound by confidentiality and restrictions no less protective than this License. The client remains responsible for their actions. Providing access to a specialist does not transfer ownership or grant that specialist an independent right to use, retain, publish, sell, or reuse any project material.
+
 Access to the website, admin panel, hosting, server, repository, database, or deployed application does not mean transfer of ownership or transfer of exclusive rights.
 
 The source code and related project materials may only be transferred under a separate written agreement signed or clearly approved by the relevant rights holder, the Ak-Suu Portal Project Team, or an authorized representative. Without such written agreement, all rights to the source code and related materials remain reserved by the relevant rights holder and the Ak-Suu Portal Project Team.
@@ -72,6 +76,8 @@ Unless separate prior written permission is granted by the relevant rights holde
 10. Bypass technical restrictions, domain restrictions, authentication systems, license checks, API limitations, role systems, or access control mechanisms.
 
 The client may not modify the source code, backend logic, frontend logic, project architecture, database structure, API logic, admin panel code, deployment logic, design system, or technical configuration without separate prior written permission.
+
+The preceding restriction does not prevent modifications expressly permitted under the Permitted Use section for materials specifically identified as transferred in writing. No access, delivery, payment, possession of files, or signing of a general acceptance document by itself constitutes transfer of source code or permission to modify it.
 
 The client may not sell, transfer, assign, sublicense, lease, publish, copy, clone, reuse, or create derivative websites, applications, templates, products, or projects based on this website, its code, design, data structure, architecture, or project materials.
 
@@ -108,6 +114,22 @@ In case of violation, the relevant rights holder and the Ak-Suu Portal Project T
 8. Correction and restoration of omitted, concealed, or false authorship and attribution information.
 
 No failure or delay by any rights holder in enforcing a right under this License constitutes a waiver of that right. No oral statement, informal message, access credential, payment, delivery, or technical access grants permission to copy, modify, transfer, publish, reuse, or remove attribution. Any such permission must be specific and in writing.
+
+Technical Support and Further Development:
+
+The Ak-Suu Portal Project Team has no obligation to provide free or continuing technical support after transfer or acceptance of the project. Maintenance, bug fixing, updates, improvements, development of new functionality, migration, security work, and consultations may be provided only under a separate agreement between the parties.
+
+Unless separately agreed in writing, the project team is not responsible for defects, downtime, data loss, incompatibility, security issues, or other consequences caused by changes made after transfer by the client or any third party, changes to hosting or dependencies, misuse, failure to maintain the website, or use outside the agreed purpose.
+
+Responsibility After Transfer:
+
+After transfer, the client is responsible for hosting and domain management, website operation, backups, credentials, content published on the website, compliance of that content with applicable law, authorized modifications, and security or technical decisions made by the client or its third-party specialists. The original project team remains responsible only for work and obligations expressly accepted by it in a separate written agreement.
+
+Portfolio and Authorship Rights:
+
+The project team and each contributor retain the right to identify themselves as creators of the original version of the project and to reference the project in portfolios, resumes, presentations, professional profiles, educational materials, and descriptions of completed work. This right does not authorize disclosure of passwords, personal data, confidential client information, security-sensitive information, or other materials expressly designated confidential in writing.
+
+Later modifications do not erase or transfer authorship of the original version. The client and third-party specialists may identify their own later contributions accurately, but may not claim authorship of the original project or remove the attribution required by this License.
 
 License Term and Termination:
 
