@@ -10,7 +10,8 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import Storage
 from django.utils.deconstruct import deconstructible
 
-# 1 MiB becomes ~1.4 MB in base64, leaving room for metadata below D1's row limit.
+# D1 stores base64 in a row limited to 2,000,000 bytes. Native PostgreSQL
+# deployments may use the larger MEDIA_MAX_FILE_SIZE configured in settings.
 MAX_IMAGE_BYTES = 1024 * 1024
 
 
@@ -35,9 +36,10 @@ class DatabaseImageStorage(Storage):
         path = PurePosixPath(name)
         if not name.startswith('news/') or '..' in path.parts or '\\' in name or path.suffix.lower() not in IMAGE_TYPES:
             raise SuspiciousFileOperation('Only news image uploads are supported.')
-        data = content.read(MAX_IMAGE_BYTES + 1)
-        if len(data) > MAX_IMAGE_BYTES:
-            raise ValueError('D1 image uploads are limited to 1 MiB.')
+        max_bytes = settings.MEDIA_MAX_FILE_SIZE
+        data = content.read(max_bytes + 1)
+        if len(data) > max_bytes:
+            raise ValueError(f'Image uploads are limited to {max_bytes // (1024 * 1024)} MiB.')
         # Immutable, unguessable names avoid overwrites and stale cached photos.
         name = f'news/{uuid4().hex}{path.suffix.lower()}'
         self._model().objects.create(name=name, content_base64=base64.b64encode(data).decode('ascii'), size=len(data))

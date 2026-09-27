@@ -237,11 +237,11 @@ python manage.py collectstatic --noinput
 
 - Render / обычный Python-хостинг: build `bash build.sh`, start `bash start.sh`.
 - Cloudflare Workers: build `bash cloudflare/build.sh`, deploy `bash cloudflare/deploy.sh`.
-- Без `DATABASE_URL` обычный сервер использует SQLite; для production нужен постоянный диск.
-- При наличии `DATABASE_URL` обычный сервер использует PostgreSQL (в том числе Neon).
+- Render Free использует Neon PostgreSQL через `DATABASE_URL`; новости, пользователи и загруженные фотографии сохраняются в базе.
+- Без `DATABASE_URL` обычный сервер использует SQLite; для production ему нужен постоянный диск.
 - Worker использует D1 для данных и фотографий до 1 МиБ; R2 не требуется. Настройки находятся в `cloudflare/wrangler.jsonc`.
 
-Сборка статики не обращается к базе. На Render миграции выполняет `start.sh`, а в Cloudflare — отдельная защищённая команда из инструкции. Blueprint `render.yaml` предусматривает платный сервис и постоянный диск.
+Сборка статики не обращается к базе. На Render миграции выполняет `start.sh`, а в Cloudflare — отдельная защищённая команда из инструкции. Blueprint `render.yaml` настроен на Render Free + внешний Neon без диска.
 
 ## Статика и изображения
 

@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
 from django.views.generic import RedirectView
-from .environment import IS_WORKER
+from .environment import IS_WORKER, flag
 from .media import public_image
 
 urlpatterns = [
@@ -28,8 +28,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-if IS_WORKER:
+if IS_WORKER or flag('ENABLE_MAINTENANCE_ENDPOINT'):
     urlpatterns += [path('__ops/', include('myproject.worker_operations'))]
-if (IS_WORKER or settings.SERVE_LOCAL_MEDIA) and settings.MEDIA_URL == '/media/':
+if (settings.DATABASE_IMAGE_STORAGE or settings.SERVE_LOCAL_MEDIA) and settings.MEDIA_URL == '/media/':
     urlpatterns += [path('media/<path:name>', public_image)]
 urlpatterns += [path('', include('myapp.urls'))]

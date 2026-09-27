@@ -132,12 +132,13 @@ class DatabaseImageStorageTests(TestCase):
     def test_d1_row_limit_leaves_room_for_metadata(self):
         from myproject.image_storage import MAX_IMAGE_BYTES
         from myapp.models import UploadedImage
-        name = self.storage.save('news/big.png', ContentFile(b'x' * MAX_IMAGE_BYTES))
-        row = UploadedImage.objects.get(pk=name)
-        self.assertLess(len(row.content_base64) + 1000, 2_000_000)
-        with self.assertRaises(ValueError):
-            self.storage.save('news/too-big.png', ContentFile(b'x' * (MAX_IMAGE_BYTES + 1)))
-        self.assertEqual(UploadedImage.objects.count(), 1)
+        with override_settings(MEDIA_MAX_FILE_SIZE=MAX_IMAGE_BYTES):
+            name = self.storage.save('news/big.png', ContentFile(b'x' * MAX_IMAGE_BYTES))
+            row = UploadedImage.objects.get(pk=name)
+            self.assertLess(len(row.content_base64) + 1000, 2_000_000)
+            with self.assertRaises(ValueError):
+                self.storage.save('news/too-big.png', ContentFile(b'x' * (MAX_IMAGE_BYTES + 1)))
+            self.assertEqual(UploadedImage.objects.count(), 1)
 
     def test_public_view_reads_database_image(self):
         with override_settings(STORAGES={

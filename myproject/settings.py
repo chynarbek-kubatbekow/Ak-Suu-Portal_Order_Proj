@@ -173,6 +173,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = env('MEDIA_URL', '/media/')
 MEDIA_ROOT = env('MEDIA_ROOT', str(BASE_DIR / 'media'))
 SERVE_LOCAL_MEDIA = flag('SERVE_LOCAL_MEDIA', DEBUG)
+DATABASE_IMAGE_STORAGE = flag('DATABASE_IMAGE_STORAGE', IS_WORKER)
 MEDIA_MAX_FILE_SIZE = (1 if IS_WORKER else 5) * 1024 * 1024
 
 STORAGES = {
@@ -187,10 +188,12 @@ STORAGES = {
 if not IS_WORKER and (not DEBUG or env('RENDER') or flag('FORCE_MANIFEST_STATIC')):
     STORAGES['staticfiles']['BACKEND'] = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-if IS_WORKER:
+if DATABASE_IMAGE_STORAGE:
     STORAGES['default'] = {
         'BACKEND': 'myproject.image_storage.DatabaseImageStorage',
     }
+
+if IS_WORKER:
     FILE_UPLOAD_HANDLERS = ['myproject.uploads.WorkerImageUploadHandler']
     FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
     DATA_UPLOAD_MAX_MEMORY_SIZE = 6 * 1024 * 1024

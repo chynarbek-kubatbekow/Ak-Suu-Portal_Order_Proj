@@ -1,4 +1,4 @@
-"""Opt-in maintenance routes for D1; disabled when DEPLOY_TOKEN is absent."""
+"""Opt-in maintenance routes; disabled when DEPLOY_TOKEN is absent."""
 import hmac
 import json
 import logging

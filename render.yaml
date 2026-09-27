@@ -2,28 +2,27 @@
 # Proprietary software. See LICENSE for terms.
 services:
   - type: web
-    name: ak-suu-portal
+    name: aksuu-portal
     runtime: python
     buildCommand: bash build.sh
     startCommand: bash start.sh
-    # SQLite and uploaded images require a persistent disk (paid Render plan).
-    plan: starter
-    disk:
-      name: portal-data
-      mountPath: /var/data
-      sizeGB: 1
+    plan: free
     envVars:
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
-        value: 2
+        value: 1
       - key: PYTHON_VERSION
         value: 3.13.5
       - key: DEBUG
         value: "0"
-      - key: SQLITE_PATH
-        value: /var/data/db.sqlite3
-      - key: MEDIA_ROOT
-        value: /var/data/media
-      - key: SERVE_LOCAL_MEDIA
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_CONN_MAX_AGE
+        value: "0"
+      - key: DATABASE_IMAGE_STORAGE
         value: "1"
+      - key: ENABLE_MAINTENANCE_ENDPOINT
+        value: "1"
+      - key: DEPLOY_TOKEN
+        sync: false
