@@ -1,5 +1,7 @@
 # Ak-Suu Tourism Lyceum Portal
 
+Deployment: [Render, Cloudflare D1 (without R2), and optional Neon PostgreSQL](DEPLOYMENT.md).
+
 ## License
 
 This project is proprietary software. Copyright (c) 2026 Ak-Suu Portal Project Team. All rights reserved.
@@ -229,68 +231,17 @@ python manage.py test
 python manage.py collectstatic --noinput
 ```
 
-## Деплой на Render
+## Деплой: Render, Cloudflare и Neon
 
-Проект уже подготовлен для Render. Можно деплоить двумя способами: через `render.yaml` или вручную через настройки Web Service.
+Подробная инструкция, создание D1 и список env: [DEPLOYMENT.md](DEPLOYMENT.md).
 
-### Вариант 1. Через render.yaml
+- Render / обычный Python-хостинг: build `bash build.sh`, start `bash start.sh`.
+- Cloudflare Workers: build `bash cloudflare/build.sh`, deploy `bash cloudflare/deploy.sh`.
+- Без `DATABASE_URL` обычный сервер использует SQLite; для production нужен постоянный диск.
+- При наличии `DATABASE_URL` обычный сервер использует PostgreSQL (в том числе Neon).
+- Worker использует D1 для данных и фотографий до 1 МиБ; R2 не требуется. Настройки находятся в `cloudflare/wrangler.jsonc`.
 
-Если Render увидит файл `render.yaml`, он может автоматически подтянуть настройки:
-
-```yaml
-services:
-  - type: web
-    name: ak-suu-portal
-    runtime: python
-    buildCommand: bash build.sh
-    startCommand: python manage.py migrate --noinput && gunicorn myproject.wsgi:application --bind 0.0.0.0:$PORT
-```
-
-### Вариант 2. Вручную
-
-В Render нужно создать новый Web Service и указать:
-
-**Build Command**
-
-```bash
-bash build.sh
-```
-
-**Start Command**
-
-```bash
-python manage.py migrate --noinput && gunicorn myproject.wsgi:application --bind 0.0.0.0:$PORT
-```
-
-**Environment Variables**
-
-```text
-SECRET_KEY = сгенерировать в Render
-DEBUG = 0
-WEB_CONCURRENCY = 4
-PYTHON_VERSION = 3.14.3
-SQLITE_PATH = /var/data/db.sqlite3
-```
-
-Сайт не сохраняет заявки, сообщения формы или персональные данные. База нужна только для Django admin и управления новостями лицея. На Render желательно подключить Disk с mount path `/var/data`, чтобы изменения новостей в админке сохранялись после перезапуска и деплоя.
-
-## Как работает build.sh
-
-Файл `build.sh` выполняет стандартную подготовку проекта на Render:
-
-```bash
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-python manage.py collectstatic --no-input
-```
-
-То есть при деплое Render:
-
-1. обновляет pip;
-2. устанавливает зависимости;
-3. собирает статические файлы.
-
-Миграции базы выполняются в `Start Command`, потому что база для админки должна быть доступна во время запуска сервиса.
+Сборка статики не обращается к базе. На Render миграции выполняет `start.sh`, а в Cloudflare — отдельная защищённая команда из инструкции. Blueprint `render.yaml` предусматривает платный сервис и постоянный диск.
 
 ## Статика и изображения
 
@@ -302,7 +253,7 @@ python manage.py collectstatic --no-input
 python manage.py collectstatic --noinput
 ```
 
-В production статика раздается через WhiteNoise.
+На Render статику раздаёт WhiteNoise, в Cloudflare — Workers Static Assets.
 
 Если локально включен production-режим и CSS/JS выглядят старыми, нужно пересобрать статику:
 

@@ -5,15 +5,25 @@ services:
     name: ak-suu-portal
     runtime: python
     buildCommand: bash build.sh
-    startCommand: python manage.py migrate --noinput && gunicorn myproject.wsgi:application --bind 0.0.0.0:$PORT
+    startCommand: bash start.sh
+    # SQLite and uploaded images require a persistent disk (paid Render plan).
+    plan: starter
+    disk:
+      name: portal-data
+      mountPath: /var/data
+      sizeGB: 1
     envVars:
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
-        value: 4
+        value: 2
       - key: PYTHON_VERSION
-        value: 3.14.3
+        value: 3.13.5
       - key: DEBUG
         value: "0"
       - key: SQLITE_PATH
         value: /var/data/db.sqlite3
+      - key: MEDIA_ROOT
+        value: /var/data/media
+      - key: SERVE_LOCAL_MEDIA
+        value: "1"

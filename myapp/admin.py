@@ -1,14 +1,37 @@
 # Copyright (c) 2026 Ak-Suu Portal Project Team. All rights reserved.
 # Proprietary software. See LICENSE for terms.
 from django.contrib import admin
+from django import forms
+from django.conf import settings
 from django.templatetags.static import static
 from django.utils.html import format_html
 
 from .models import NewsItem
+from myproject.environment import IS_WORKER
+
+
+class NewsItemForm(forms.ModelForm):
+    class Meta:
+        model = NewsItem
+        fields = '__all__'
+
+    def clean_image_file(self):
+        image = self.cleaned_data.get('image_file')
+        if image and hasattr(image, 'content_type'):
+            from pathlib import Path
+            from myproject.media import IMAGE_TYPES
+
+            if image.size > settings.MEDIA_MAX_FILE_SIZE:
+                raise forms.ValidationError('Максимальный размер фотографии — %(size)s МиБ.',
+                                            params={'size': settings.MEDIA_MAX_FILE_SIZE // (1024 * 1024)})
+            if Path(image.name).suffix.lower() not in IMAGE_TYPES:
+                raise forms.ValidationError('Используйте JPG, PNG, WebP или GIF.')
+        return image
 
 
 @admin.register(NewsItem)
 class NewsItemAdmin(admin.ModelAdmin):
+    form = NewsItemForm
     list_display = (
         "preview",
         "title",
@@ -21,6 +44,9 @@ class NewsItemAdmin(admin.ModelAdmin):
     list_display_links = ("preview", "title")
     list_editable = ("order", "is_published")
     list_filter = ("category", "is_published", "updated_at")
+    if IS_WORKER:
+        # D1 does not provide all Django-specific date SQL functions.
+        list_filter = ("category", "is_published")
     search_fields = ("title", "text", "date")
     ordering = ("order", "-created_at")
     readonly_fields = ("preview", "created_at", "updated_at")

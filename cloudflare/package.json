@@ -1,0 +1,5 @@
+{
+  "name": "aksuu-portal-cloudflare",
+  "private": true,
+  "devDependencies": {"wrangler": "4.141.0"}
+}

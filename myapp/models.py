@@ -3,6 +3,15 @@
 from django.db import models
 
 
+class UploadedImage(models.Model):
+    """Small Worker uploads stored in D1; native hosts continue using disk."""
+    name = models.CharField(max_length=220, primary_key=True)
+    # Text avoids platform-specific binary binding conversions in django-cf.
+    content_base64 = models.TextField()
+    size = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
 class NewsItem(models.Model):
     CATEGORY_ADMISSION = "\u041f\u043e\u0441\u0442\u0443\u043f\u043b\u0435\u043d\u0438\u0435"
     CATEGORY_PARTNERSHIP = "\u041f\u0430\u0440\u0442\u043d\u0451\u0440\u0441\u0442\u0432\u0430"

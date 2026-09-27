@@ -1,0 +1,8 @@
+# Copy to cloudflare/.dev.vars for LOCAL Wrangler only; do not commit secrets.
+DEBUG=1
+SECRET_KEY=local-worker-development-secret-change-for-production
+ALLOWED_HOSTS=localhost,127.0.0.1
+SESSION_COOKIE_SECURE=0
+CSRF_COOKIE_SECURE=0
+DEPLOY_TOKEN=local-maintenance-token-at-least-32-characters
+# D1 uses binding DB in wrangler.jsonc, not DATABASE_URL. No R2 required.

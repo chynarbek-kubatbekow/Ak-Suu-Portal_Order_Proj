@@ -15,6 +15,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
+from django.core.exceptions import ImproperlyConfigured
+from .environment import IS_WORKER, csv, env, flag
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,21 +26,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    'SECRET_KEY',
-    'django-insecure-lf3lw=x=!u4uiam!#v#73x#%dsk5d5^nq1%u!+powfvpsah!2!',
-)
+BUILD_ONLY = os.environ.get('DJANGO_SETTINGS_MODULE') == 'myproject.settings_build'
+DEBUG = flag('DEBUG', not IS_WORKER and not bool(env('RENDER')))
+SECRET_KEY = env('SECRET_KEY')
+if not SECRET_KEY:
+    if DEBUG or BUILD_ONLY:
+        SECRET_KEY = 'django-insecure-local-development-and-static-build-only'
+    else:
+        raise ImproperlyConfigured('Set a unique SECRET_KEY for production.')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', '1') == '1' and not os.environ.get('RENDER')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-if render_host := os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
+ALLOWED_HOSTS = csv('ALLOWED_HOSTS', '127.0.0.1,localhost')
+if render_host := env('RENDER_EXTERNAL_HOSTNAME'):
     ALLOWED_HOSTS.append(render_host)
-if extra_hosts := os.environ.get('ALLOWED_HOSTS'):
-    ALLOWED_HOSTS.extend(host.strip() for host in extra_hosts.split(',') if host.strip())
 
-CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS if host not in {'127.0.0.1', 'localhost'}]
+CSRF_TRUSTED_ORIGINS = csv('CSRF_TRUSTED_ORIGINS')
+SESSION_COOKIE_SECURE = flag('SESSION_COOKIE_SECURE', not DEBUG)
+CSRF_COOKIE_SECURE = flag('CSRF_COOKIE_SECURE', not DEBUG)
+if env('RENDER'):
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
@@ -62,6 +70,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+if IS_WORKER:
+    MIDDLEWARE.remove('whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = 'myproject.urls'
 
@@ -86,12 +96,40 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+DATABASE_URL = env('DATABASE_URL').strip()
+DB_BACKEND = env('DB_BACKEND', 'd1' if IS_WORKER else ('postgresql' if DATABASE_URL else 'sqlite'))
+if BUILD_ONLY:
+    DATABASES = {'default': {'ENGINE': 'django.db.backends.dummy'}}
+elif IS_WORKER:
+    if DB_BACKEND != 'd1' or DATABASE_URL:
+        raise ImproperlyConfigured('Python Workers use D1 here. DATABASE_URL/Neon is supported on Render or another native Python host.')
+    DATABASES = {'default': {
+        'ENGINE': 'django_cf.db.backends.d1',
+        'CLOUDFLARE_BINDING': 'DB',
+    }}
+elif DB_BACKEND == 'postgresql':
+    if not DATABASE_URL:
+        raise ImproperlyConfigured('DB_BACKEND=postgresql requires DATABASE_URL.')
+    import dj_database_url
+
+    DATABASES = {'default': dj_database_url.parse(
+        DATABASE_URL, conn_max_age=int(env('DB_CONN_MAX_AGE', '0')),
+        conn_health_checks=True,
+    )}
+    if DATABASES['default']['ENGINE'] != 'django.db.backends.postgresql':
+        raise ImproperlyConfigured('DATABASE_URL must be a PostgreSQL connection URL.')
+    # Compatible with Neon pooled connections (PgBouncer transaction mode).
+    DATABASES['default']['DISABLE_SERVER_SIDE_CURSORS'] = True
+elif DB_BACKEND == 'sqlite':
+    if DATABASE_URL:
+        raise ImproperlyConfigured('Remove DB_BACKEND=sqlite to enable DATABASE_URL.')
+    DATABASES = {'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.environ.get('SQLITE_PATH', BASE_DIR / 'db.sqlite3'),
-    }
-}
+        'NAME': env('SQLITE_PATH', str(BASE_DIR / 'db.sqlite3')),
+        'OPTIONS': {'timeout': 20},
+    }}
+else:
+    raise ImproperlyConfigured('DB_BACKEND must be sqlite or postgresql on a native host, or d1 inside Workers.')
 
 
 # Password validation
@@ -128,12 +166,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.environ.get('MEDIA_ROOT', BASE_DIR / 'media')
+MEDIA_URL = env('MEDIA_URL', '/media/')
+MEDIA_ROOT = env('MEDIA_ROOT', str(BASE_DIR / 'media'))
+SERVE_LOCAL_MEDIA = flag('SERVE_LOCAL_MEDIA', DEBUG)
+MEDIA_MAX_FILE_SIZE = (1 if IS_WORKER else 5) * 1024 * 1024
 
 STORAGES = {
     'default': {
@@ -144,8 +184,16 @@ STORAGES = {
     },
 }
 
-if not DEBUG or os.environ.get('RENDER') or os.environ.get('FORCE_MANIFEST_STATIC') == '1':
+if not IS_WORKER and (not DEBUG or env('RENDER') or flag('FORCE_MANIFEST_STATIC')):
     STORAGES['staticfiles']['BACKEND'] = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+if IS_WORKER:
+    STORAGES['default'] = {
+        'BACKEND': 'myproject.image_storage.DatabaseImageStorage',
+    }
+    FILE_UPLOAD_HANDLERS = ['myproject.uploads.WorkerImageUploadHandler']
+    FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024
+    DATA_UPLOAD_MAX_MEMORY_SIZE = 6 * 1024 * 1024
 
 WHITENOISE_MAX_AGE = 31536000
 

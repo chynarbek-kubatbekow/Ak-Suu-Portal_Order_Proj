@@ -1,0 +1,38 @@
+lock-version = "1.0"
+created-by = "uv"
+requires-python = ">=3.13.2"
+
+[[packages]]
+name = "asgiref"
+version = "3.12.1"
+wheels = [{ url = "https://files.pythonhosted.org/packages/c0/1b/54f4ad77cd8a584fa70746c47df988e002cf1ee1eba43364d46f87803647/asgiref-3.12.1-py3-none-any.whl", upload-time = 2026-07-14T09:56:16Z, size = 25478, hashes = { sha256 = "fe386d1c2bff7259ea95929266d12a8cf9a8b5a1c2598402967d8792e7a7c094" } }]
+
+[[packages]]
+name = "django"
+version = "6.0.6"
+wheels = [{ url = "https://files.pythonhosted.org/packages/eb/50/23f9dc45483419a3cc2085b498b25adfbf10642b2941c73e6d2dfaffc9ab/django-6.0.6-py3-none-any.whl", upload-time = 2026-06-03T13:02:41Z, size = 8373354, hashes = { sha256 = "25148b1194c47c2e685e5f5e9c5d59c78b075dfd282cb9618861ba6c1708f4d2" } }]
+
+[[packages]]
+name = "django-cf"
+version = "0.2.16"
+wheels = [{ url = "https://files.pythonhosted.org/packages/bb/6c/67d25d3a445b7b43befe329fdc45e2c47dab38c62f4023065cee09680b9a/django_cf-0.2.16-py3-none-any.whl", upload-time = 2026-09-01T14:36:49Z, size = 25837, hashes = { sha256 = "5d6033649920c1b7e146f429f6fcdfefd277d5faba0c2660deb524b8f1183163" } }]
+
+[[packages]]
+name = "pillow"
+version = "11.3.0"
+wheels = [{ url = "https://cdn.jsdelivr.net/pyodide/v0.28.3/full/pillow-11.3.0-cp313-cp313-pyodide_2025_0_wasm32.whl", hashes = { sha256 = "52984112ca668d60291a7868011a04d66baf526d27e5eaef0a8a16e7ef22ab6c" } }]
+
+[[packages]]
+name = "sqlparse"
+version = "0.6.0"
+wheels = [{ url = "https://files.pythonhosted.org/packages/d9/50/f00935da0ec7cbf325f8dc4f772ae46fbc7b672dd62876e73f0a94adda57/sqlparse-0.6.0-py3-none-any.whl", upload-time = 2026-08-13T19:16:04Z, size = 50070, hashes = { sha256 = "b861c0288ce2fa56209a9a6412d2e066ac664b3873b89c26c9d8415e8e32996f" } }]
+
+[[packages]]
+name = "tzdata"
+version = "2026.2"
+wheels = [{ url = "https://files.pythonhosted.org/packages/ce/e4/dccd7f47c4b64213ac01ef921a1337ee6e30e8c6466046018326977efd95/tzdata-2026.2-py2.py3-none-any.whl", upload-time = 2026-04-24T15:22:05Z, size = 349321, hashes = { sha256 = "bbe9af844f658da81a5f95019480da3a89415801f6cc966806612cc7169bffe7" } }]
+
+[[packages]]
+name = "workers-runtime-sdk"
+version = "1.9.0"
+wheels = [{ url = "https://files.pythonhosted.org/packages/94/3d/053deb135d4db2ef6f6c3ccdeb86d7829de3c271f7ae02cec73da8f65891/workers_runtime_sdk-1.9.0-py3-none-any.whl", upload-time = 2026-09-18T21:08:37Z, size = 38585, hashes = { sha256 = "36209f94984686264db4e1fd410d51ac3460f2a2ab3cc29869699b975e1e1331" } }]

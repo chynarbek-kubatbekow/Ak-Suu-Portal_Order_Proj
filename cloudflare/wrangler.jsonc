@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aksuu-portal",
+  "main": ".build/src/worker.py",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["python_workers"],
+  "assets": {
+    "directory": ".build/assets",
+    "not_found_handling": "none"
+  },
+  "python_modules": {
+    "exclude": ["**/__pycache__/**", "**/*.pyc", "**/tests.py", "**/test_*.py"]
+  },
+  "observability": {"enabled": true},
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "aksuu-portal-db",
+    "database_id": "217f7e4c-018b-45f7-b98a-136e4df9ce4a"
+  }]
+}

@@ -1,0 +1,17 @@
+[project]
+name = "aksuu-portal-worker"
+version = "1.0.0"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "Django==6.0.6",
+    "django-cf==0.2.16",
+    "Pillow",
+    "tzdata==2026.2",
+]
+
+[dependency-groups]
+dev = [
+    "workers-py==1.17.4",
+    "workers-runtime-sdk==1.9.0",
+    "whitenoise==6.12.0",
+]

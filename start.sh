@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Copyright (c) 2026 Ak-Suu Portal Project Team. All rights reserved.
+set -euo pipefail
+python scripts/prepare_runtime.py
+python manage.py migrate --noinput
+exec gunicorn myproject.wsgi:application --bind "0.0.0.0:${PORT:-8000}" --workers "${WEB_CONCURRENCY:-2}" --access-logfile -
