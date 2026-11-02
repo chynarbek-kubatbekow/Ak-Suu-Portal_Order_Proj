@@ -40,6 +40,9 @@ if not SECRET_KEY:
 ALLOWED_HOSTS = csv('ALLOWED_HOSTS', '127.0.0.1,localhost')
 if render_host := env('RENDER_EXTERNAL_HOSTNAME'):
     ALLOWED_HOSTS.append(render_host)
+# Vercel's production domain and generated deployment subdomains.
+if env('VERCEL') or env('VERCEL_ENV'):
+    ALLOWED_HOSTS.extend(['ak-suu-portal.vercel.app', '.vercel.app'])
 
 CSRF_TRUSTED_ORIGINS = csv('CSRF_TRUSTED_ORIGINS')
 SESSION_COOKIE_SECURE = flag('SESSION_COOKIE_SECURE', not DEBUG)
