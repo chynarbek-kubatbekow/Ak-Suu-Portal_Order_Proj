@@ -42,7 +42,7 @@ if render_host := env('RENDER_EXTERNAL_HOSTNAME'):
     ALLOWED_HOSTS.append(render_host)
 # Vercel's production domain and generated deployment subdomains.
 if env('VERCEL') or env('VERCEL_ENV'):
-    ALLOWED_HOSTS.extend(['ak-suu-portal.vercel.app', '.vercel.app'])
+    ALLOWED_HOSTS.extend(['ak-suu-portal.vercel.app', 'ak-suu-portal-alpha.vercel.app', '.chynarbek2804-7803.vercel.app'])
 
 CSRF_TRUSTED_ORIGINS = csv('CSRF_TRUSTED_ORIGINS')
 SESSION_COOKIE_SECURE = flag('SESSION_COOKIE_SECURE', not DEBUG)
